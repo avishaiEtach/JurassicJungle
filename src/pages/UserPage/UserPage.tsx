@@ -161,8 +161,7 @@ export function UserPage() {
 
   return (
     <>
-    <div className="flex user__tab__container AAA
-    ">
+    <div className="flex user__tab__container">
       {catagories.map((category:any) => <div onClick={()=>{setChooseUser(category.value)}} className={`user__tab ${chooseUser === category.value ? "active" :""}`}>
       {category.icon}
       </div>)}
