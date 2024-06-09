@@ -1,0 +1,102 @@
+@import "../../assets/styles/setup/setup";
+
+.login__text__filed {
+  .MuiInputBase-root.MuiOutlinedInput-root:has(input) {
+    border-color: $black !important;
+    &.Mui-focused {
+      fieldset {
+        border-color: $black !important;
+      }
+    }
+    &.Mui-error {
+      input {
+        color: $error !important;
+      }
+      &.Mui-focused {
+        fieldset {
+          border-color: $error !important;
+        }
+      }
+    }
+  }
+}
+
+.login__modal {
+  padding-block: 10px !important;
+  border-radius: 20px !important;
+  margin-top: 10px !important;
+}
+
+.login__divider {
+  margin-block: 10px !important;
+}
+
+.login__form {
+  width: 100%;
+}
+
+.login__header {
+  margin-bottom: 40px;
+}
+
+.login__main__container {
+  margin: 20px;
+}
+
+.login__modal__link {
+  font-weight: 700;
+  transition: 0.4s;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.error__container {
+  position: relative;
+}
+
+.error__icon {
+  pointer-events: none;
+  position: absolute;
+  transform: translate(0, -25px);
+  right: -30px;
+  top: 30%;
+  width: 22px !important;
+  height: 22px !important;
+  opacity: 0;
+  color: $error !important;
+  &.show {
+    pointer-events: all;
+    transition: 0.4s;
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  &.date {
+    @media screen and (max-width: $mobile-breakpoint) {
+      transform: translate(-35px, -30px);
+      &.show {
+        transform: translate(-35px, -11px);
+      }
+    }
+    @media screen and (min-width: $mobile-breakpoint) {
+      transform: translate(-180px, -30px);
+      &.show {
+        transform: translate(-180px, -12px);
+      }
+    }
+  }
+}
+
+.MuiTooltip-tooltip:has(.error__tooltip) {
+  color: $error;
+  background-color: $whispering_rose;
+  padding: 10px;
+  font-size: 12px;
+  ul {
+    padding-left: 14px;
+    li:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+}

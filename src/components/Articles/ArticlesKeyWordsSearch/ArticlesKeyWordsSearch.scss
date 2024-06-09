@@ -1,0 +1,20 @@
+@import "../../../assets/styles/setup/setup";
+
+.keywords__container {
+  display: flex;
+  gap: 8px;
+  & > * {
+    text-transform: capitalize;
+    transition: 0.4s;
+    cursor: pointer;
+    &:hover {
+      color: $warm_sand !important;
+    }
+    .active {
+      color: $warm_sand !important;
+    }
+  }
+  @media screen and (max-width: 830px) {
+    flex-wrap: wrap;
+  }
+}

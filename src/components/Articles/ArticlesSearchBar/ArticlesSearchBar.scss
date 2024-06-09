@@ -1,0 +1,37 @@
+@import "../../../assets/styles/setup/setup";
+
+.articles__search__bar__container {
+  display: flex;
+  align-items: center;
+  outline: 1px solid rgba($black, 0.2);
+  width: 100%;
+  position: relative;
+  padding-right: 4px;
+}
+
+.articles__search__bar {
+  fieldset {
+    border: none !important;
+  }
+  input {
+    padding-right: 25px !important;
+    padding-block: 12px !important;
+  }
+}
+
+.articles__search__bar__clear__search__button {
+  position: absolute;
+  right: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.articles__search__bar__search__button {
+  padding: 5px !important;
+}

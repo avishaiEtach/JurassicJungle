@@ -1,0 +1,54 @@
+@import "../../../assets/styles/setup/setup";
+
+.carousel__box {
+  position: relative;
+  max-width: 500px;
+  flex-grow: 1;
+  border-radius: 10px;
+  .MuiMobileStepper-root {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    &:hover {
+      .right {
+        right: 10px;
+        background-color: $white !important;
+        color: $black !important;
+      }
+      .left {
+        left: 10px;
+        background-color: $white !important;
+        color: $black !important;
+      }
+    }
+    .MuiMobileStepper-dots {
+      position: absolute;
+      bottom: 25px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: transparent;
+      .MuiMobileStepper-dot {
+        background-color: rgba($white, 0.6) !important;
+      }
+      .MuiMobileStepper-dotActive {
+        background-color: $white !important;
+      }
+      @media screen and (min-width: 1500px) {
+        bottom: 65px;
+      }
+    }
+  }
+}
+
+.carousel__container {
+  border-radius: 10px !important;
+}
+
+.carousel__img {
+  height: 400px;
+  display: block;
+  width: 500px;
+  overflow: hidden;
+}

@@ -1,0 +1,55 @@
+@import "../../assets/styles/setup/setup";
+
+.contact__us__main__container {
+  margin-top: 40px;
+  height: 500px;
+  & > * {
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+  }
+  .MuiButtonBase-root {
+    text-transform: capitalize !important;
+    &:hover {
+      border: 1px solid $black;
+      background-color: $silver_mist;
+    }
+    border-radius: 20px !important;
+    border: 1px solid rgba($black, 0.5);
+    color: $black;
+    @media screen and (max-width: $mobile-breakpoint) {
+      margin-top: 20px;
+    }
+  }
+  @media screen and (max-width: $mobile-breakpoint) {
+    flex-direction: column;
+    height: auto;
+    & > * {
+      flex-basis: auto;
+    }
+  }
+}
+
+.contact-us-map {
+  @media screen and (max-width: $mobile-breakpoint) {
+    order: 1;
+    height: 400px !important;
+    margin-top: 20px;
+  }
+}
+
+.confect__us__form__container {
+  padding-left: 35px;
+  @media screen and (max-width: $mobile-breakpoint) {
+    padding: 0;
+  }
+}
+
+.loader__container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

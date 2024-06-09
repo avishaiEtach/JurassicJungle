@@ -1,0 +1,34 @@
+@import "../../assets/styles/setup/setup";
+
+.app-footer {
+  margin-top: 40px;
+  padding: 40px 0px;
+  background-color: $white;
+  box-shadow: 0 2px 10px 0 $Shadow_slate;
+}
+
+.footer__logo {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+p {
+  font-size: 12px;
+}
+
+.footer__details__text {
+  font-size: 12px;
+}
+
+.footer__icons {
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.footer__links {
+  font-size: 12px;
+  padding-top: 10px;
+}

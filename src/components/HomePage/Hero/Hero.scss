@@ -1,0 +1,45 @@
+@import "../../../assets/styles/setup/setup";
+
+.hero__background {
+  width: 100%;
+  height: 300px;
+  margin-top: 40px;
+  background-image: url(https://ap-pics2.gotpoem.com/ap-pics/item/15416/89.jpg?paleontologylanding73);
+  border-radius: 10px;
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 -180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h1,
+  p {
+    position: relative;
+    z-index: 5;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  p {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  &::after {
+    content: "";
+    background-color: $frosted_silver;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+  @media screen and (max-width: $normal-breakpoint) {
+    background-position: 0 0px;
+    padding: 30px;
+    margin-top: 20px;
+  }
+}

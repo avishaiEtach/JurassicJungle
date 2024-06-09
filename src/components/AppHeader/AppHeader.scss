@@ -1,0 +1,100 @@
+@import "../../assets/styles/setup/setup";
+
+.app__header {
+  position: sticky;
+  top: 0;
+  background-color: $white;
+  box-shadow: 0 2px 10px 0 $Shadow_slate;
+  z-index: 100;
+}
+
+.active {
+  color: $warm_sand;
+  svg {
+    fill: $warm_sand;
+  }
+}
+
+.drawer__box {
+  width: 250px !important;
+}
+
+.logo {
+  width: 300px;
+  img {
+    object-fit: contain;
+    display: block;
+    width: 100%;
+  }
+}
+
+.navbar {
+  display: flex;
+  margin: 0 auto;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  font-size: rem(16px);
+  a {
+    transition: 0.4s;
+    &:hover {
+      color: $warm_sand;
+    }
+  }
+  @media screen and (min-width: 1500px) {
+    margin-left: 20%;
+  }
+}
+
+.mobile__header,
+.desktop__header {
+  display: flex;
+  gap: 80px;
+}
+
+.mobile__header {
+  padding: 5px;
+}
+
+@media screen and (max-width: $mobile-breakpoint) {
+  .desktop__header {
+    display: none !important;
+  }
+  .mobile__header {
+    display: grid !important;
+  }
+}
+
+@media screen and (min-width: $mobile-breakpoint) and (max-width: $normal-breakpoint) {
+  .desktop__header {
+    display: none !important;
+  }
+  .mobile__header {
+    display: grid !important;
+  }
+}
+
+@media screen and (min-width: $normal-breakpoint) {
+  .desktop__header {
+    display: grid !important;
+  }
+  .mobile__header {
+    display: none !important;
+  }
+}
+
+.login__button {
+  text-transform: capitalize !important;
+  &:hover {
+    border: 1px solid $black;
+    background-color: $silver_mist;
+  }
+  border: 1px solid rgba($black, 0.5) !important;
+  color: $black !important;
+}
+
+.avatar__skeleton {
+  width: 40px;
+  height: 40px !important;
+}

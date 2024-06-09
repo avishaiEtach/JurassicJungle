@@ -1,0 +1,100 @@
+// Font Sizes
+.fs12 {
+  font-size: rem(12px);
+}
+.fs14 {
+  font-size: rem(14px);
+}
+.fs18 {
+  font-size: rem(18px);
+}
+.fs20 {
+  font-size: rem(20px);
+}
+.fs22 {
+  font-size: rem(22px);
+}
+.fs24 {
+  font-size: rem(24px);
+}
+.fs28 {
+  font-size: rem(28px);
+}
+.fs30 {
+  font-size: rem(30px);
+}
+
+//padding
+
+.p10 {
+  padding: 10px;
+}
+.p20 {
+  padding: 20px;
+}
+.p30 {
+  padding: 30px;
+}
+
+//gap
+
+.g5 {
+  gap: 5px;
+}
+.g10 {
+  gap: 10px;
+}
+.g15 {
+  gap: 15px;
+}
+.g20 {
+  gap: 20px;
+}
+.g30 {
+  gap: 30px;
+}
+
+.margin-auto {
+  margin: 0 auto;
+}
+
+.width100 {
+  width: 100%;
+}
+
+// flex helpers
+
+.flex {
+  display: flex;
+
+  > *.full {
+    flex: 1;
+  }
+  &.column {
+    flex-direction: column;
+  }
+  &.justify-center {
+    justify-content: center;
+  }
+  &.align-center {
+    align-items: center;
+  }
+  &.space-between {
+    justify-content: space-between;
+  }
+  &.space-evenly {
+    justify-content: space-evenly;
+  }
+}
+
+// Media helpers
+
+.square-ratio {
+  @include aspect-ratio(1, 1);
+}
+.video-ratio {
+  @include aspect-ratio(16, 9);
+}
+.portrait-ratio {
+  @include aspect-ratio(9, 16);
+}

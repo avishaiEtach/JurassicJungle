@@ -1,0 +1,30 @@
+@import "../../assets/styles/setup/setup";
+
+.Dinosaurs__main__container {
+  margin-top: 30px;
+  @media screen and (min-width: $narrow-breakpoint) {
+    margin-top: 80px;
+  }
+  @media screen and (min-height: 720px) and (max-height: 1400px) and (max-width: 1400px) {
+    margin-top: 30px;
+  }
+  @media screen and (max-width: $narrow-breakpoint) {
+    flex-direction: column;
+  }
+}
+
+.dinosaurs__container {
+  display: grid;
+  grid-gap: 20px;
+}
+
+.dinosaurs__loader__container {
+  flex-grow: 1;
+}
+
+.dinosaurs__cards__container {
+  flex-grow: 1;
+  @media screen and (min-width: $narrow-breakpoint) {
+    margin-left: 70px;
+  }
+}

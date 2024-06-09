@@ -1,0 +1,42 @@
+@import "../../assets/styles/setup/setup";
+
+.carousel__main__container {
+  padding: 50px;
+  display: flex;
+  gap: 30px;
+
+  @media screen and (max-width: $narrow-breakpoint) {
+    flex-direction: column;
+  }
+
+  @media screen and (max-width: 1300px) {
+    flex-direction: column;
+    .carousel__box {
+      max-width: 100% !important;
+      height: 250px;
+    }
+
+    .carousel__img {
+      width: 100% !important;
+      height: 250px;
+    }
+  }
+
+  @media screen and (min-width: $narrow-breakpoint) and (max-width: 1500px) {
+    flex-direction: column;
+    .carousel__box {
+      max-width: 100% !important;
+      height: auto;
+    }
+
+    .carousel__img {
+      width: 100% !important;
+      height: 400px;
+    }
+  }
+}
+
+.about__us__text {
+  font-size: 16px;
+  line-height: 1.4;
+}

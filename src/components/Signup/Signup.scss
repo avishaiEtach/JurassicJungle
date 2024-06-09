@@ -1,0 +1,99 @@
+@import "../../assets/styles/setup/setup";
+
+.singup__main__container {
+  margin: 20px;
+  @media screen and (max-width: $mobile-breakpoint) {
+    margin: 5px;
+  }
+}
+
+.singup__header {
+  margin-bottom: 40px;
+  @media screen and (max-width: $mobile-breakpoint) {
+    margin-bottom: 20px;
+  }
+}
+
+.singup__form {
+  width: 100%;
+}
+
+.singup__modal {
+  padding-block: 10px !important;
+  border-radius: 20px !important;
+  margin-top: 10px !important;
+}
+
+.singup__divider {
+  margin-block: 10px !important;
+}
+
+.singup__modal__link {
+  font-weight: 700;
+  transition: 0.4s;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.singup__text__filed {
+  .MuiInputBase-root.MuiOutlinedInput-root:has(input) {
+    border-color: $black !important;
+    &.Mui-focused {
+      fieldset {
+        border-color: $black !important;
+      }
+    }
+  }
+  &.error {
+    .MuiInputBase-root.MuiOutlinedInput-root:has(input) {
+      border-color: $error !important;
+      color: $error !important;
+      &.Mui-focused {
+        fieldset {
+          border-color: $error !important;
+        }
+      }
+    }
+    .MuiInputLabel-shrink.Mui-focused {
+      color: $error !important;
+    }
+  }
+  input {
+    &::placeholder {
+      text-transform: capitalize;
+    }
+  }
+  .MuiInputLabel-shrink.Mui-focused {
+    color: rgba($black, 0.6);
+  }
+  &.singup__select {
+    width: 110px !important;
+    @media screen and (max-width: $mobile-breakpoint) {
+      width: 100% !important;
+    }
+  }
+}
+
+.singup__up__popover {
+  height: 300px !important;
+}
+
+.singup__up__date__container {
+  p {
+    font-size: 1rem;
+  }
+}
+
+.singup__up__date__box__container {
+  @media screen and (max-width: $mobile-breakpoint) {
+    flex-direction: column;
+    align-items: flex-start !important;
+    width: 100%;
+  }
+}
+
+.error__container {
+  position: relative;
+}

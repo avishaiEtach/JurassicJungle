@@ -1,0 +1,86 @@
+@import "../../../assets/styles/setup/setup";
+
+.large__screens__categories__container {
+  display: block;
+  @media screen and (max-width: $mobile-breakpoint) {
+    display: none;
+  }
+  @media screen and (min-width: $mobile-breakpoint) and (max-width: $narrow-breakpoint) {
+    display: none;
+  }
+  // @media screen and (min-height: 800px) and (max-height: 1400px) and (max-width: $narrow-breakpoint) {
+  //   display: block;
+  // }
+}
+
+.small__screens__categories__container {
+  display: none;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 10px;
+  margin-bottom: 40px;
+  .MuiButtonGroup-root {
+    width: 100% !important;
+    & > * {
+      width: 100% !important;
+    }
+  }
+  @media screen and (max-width: $mobile-breakpoint) {
+    display: flex;
+  }
+  @media screen and (min-width: $mobile-breakpoint) and (max-width: $narrow-breakpoint) {
+    display: flex;
+  }
+}
+
+.dinosaurs__catagories {
+  margin-bottom: 40px;
+  h5 {
+    font-size: 18px;
+    margin: 0;
+    padding-inline: 20px;
+    text-transform: capitalize;
+  }
+
+  svg {
+    color: rgba($black, 0.32);
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    li {
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: 500;
+      border-radius: 5px;
+      &:not(:last-of-type) {
+        margin-bottom: 10px;
+      }
+      transition: 0.4s;
+      &:hover {
+        box-shadow: 0 2px 10px 0 $Shadow_slate;
+      }
+    }
+  }
+}
+
+.dinosaurs__catagories__divider {
+  margin-top: 10px !important;
+  margin-left: 20px !important;
+}
+
+// .chosen {
+//   box-shadow: 0 2px 10px 0 $Shadow_slate;
+// }
+
+.small__screen__chosen,
+.chosen {
+  color: $warm_sand !important;
+}
+
+.dinosaurs__catagories__small__popper {
+  z-index: 5;
+}
