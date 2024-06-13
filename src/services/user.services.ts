@@ -7,6 +7,7 @@ export const userServices = {
   getLoggedInUser,
   logout,
   signup,
+  updateUser,
 };
 
 async function login(loginForm: { email: string; password: string }) {
@@ -28,4 +29,8 @@ async function getLoggedInUser() {
 async function logout() {
   Cookies.remove(process.env.REACT_APP_SESSION_COOKIE_NAME as string);
   return await http.get(`/logout`);
+}
+
+async function updateUser(id = "", fieldsToChange: any) {
+  return await http.put(`/updateDinosaur/${id}`, { fieldsToChange });
 }

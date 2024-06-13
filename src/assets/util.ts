@@ -150,8 +150,77 @@ export function getDateToObject(date: Date | undefined) {
     const yyyy: number = date.getFullYear();
     let MM: number | string = date.getMonth() + 1;
     let dd: number | string = date.getDate();
-    return {day : dd , month :MM , year : yyyy };
+    return { day: dd, month: MM, year: yyyy };
   }
+}
+
+export function compareObjects(
+  obj1: { [key: string]: any },
+  obj2: { [key: string]: any },
+  ignoreFields: string[] = []
+): Dictionary {
+  const changes: Dictionary = {};
+  const isISODateString = (value: any): boolean => {
+    return (
+      typeof value === "string" &&
+      /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/.test(value)
+    );
+  };
+
+  // Helper function to convert ISO date string to "dd/mm/yyyy" format
+  const isoToDate = (isoString: string): string => {
+    const date = new Date(isoString);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+  // Check for added or modified fields
+  for (const key in obj1) {
+    if (ignoreFields.includes(key)) {
+      continue;
+    }
+
+    if (!(key in obj2)) {
+      changes[key] = null; // or undefined, depending on your preference for indicating removal
+    } else if (isISODateString(obj1[key]) && isISODateString(obj2[key])) {
+      const formattedObj1Date = isoToDate(obj1[key]);
+      const formattedObj2Date = isoToDate(obj2[key]);
+      if (formattedObj1Date !== formattedObj2Date) {
+        changes[key] = formattedObj2Date;
+      }
+    } else if (obj1[key] !== obj2[key]) {
+      changes[key] = obj2[key];
+    }
+  }
+
+  return changes;
+}
+
+export function parseDate(dateString: string) {
+  // Split the date string by "/"
+  const parts = dateString.split("/");
+
+  // Ensure we have exactly three parts: day, month, year
+  if (parts.length !== 3) {
+    throw new Error('Invalid date format. Expected "dd/mm/yyyy".');
+  }
+
+  // Extract day, month, and year from parts
+  const day = parseInt(parts[0], 10); // Parse day as integer
+  const month = parseInt(parts[1], 10) - 1; // Parse month as integer (subtract 1 because months are zero-indexed in JavaScript)
+  const year = parseInt(parts[2], 10); // Parse year as integer
+
+  // Create a new Date object
+  const date = new Date(year, month, day);
+
+  // Validate the created Date object
+  if (isNaN(date.getTime())) {
+    throw new Error("Invalid date.");
+  }
+
+  return date.toISOString();
 }
 
 // NA - North America
