@@ -223,6 +223,64 @@ export function parseDate(dateString: string) {
   return date.toISOString();
 }
 
+export function extractSections(articleStr: string): {
+  sections: { header: string; paragraphs?: string[]; list?: string[] }[];
+  mainHeader: string;
+} {
+  // Define the regex pattern to match the main header
+  const mainHeaderPattern = /<h1>(.*?)<\/h1>/s;
+  const mainHeaderMatch = articleStr.match(mainHeaderPattern);
+  const mainHeader = mainHeaderMatch ? mainHeaderMatch[1].trim() : "";
+
+  // Define the regex pattern to match each section
+  const sectionPattern = /<section>(.*?)<\/section>/gs;
+  const headerPattern = /<h2>(.*?)<\/h2>/s;
+  const paragraphPattern = /<p>(.*?)<\/p>/gs;
+  const listItemPattern = /<li>(.*?)<\/li>/gs;
+
+  // Use match to get all section matches
+  const sectionMatches = articleStr.match(sectionPattern);
+
+  // If there are no matches, return an empty array
+  const sections = sectionMatches
+    ? sectionMatches.map((section) => {
+        // Extract the header
+        const headerMatch = section.match(headerPattern);
+        const header = headerMatch ? headerMatch[1].trim() : "";
+
+        // Extract all paragraphs
+        const paragraphMatches = section.match(paragraphPattern);
+        const paragraphs = paragraphMatches
+          ? paragraphMatches.map((p) => p.replace(/<\/?p>/g, "").trim())
+          : [];
+
+        // Extract all list items if paragraphs are empty
+        const listItemMatches = section.match(listItemPattern);
+        const list =
+          !paragraphMatches && listItemMatches
+            ? listItemMatches.map((li) => li.replace(/<\/?li>/g, "").trim())
+            : [];
+
+        // Create section object
+        const sectionObj: {
+          header: string;
+          paragraphs?: string[];
+          list?: string[];
+        } = { header };
+        if (paragraphs.length > 0) {
+          sectionObj.paragraphs = paragraphs;
+        } else if (list.length > 0) {
+          sectionObj.list = list;
+        }
+
+        return sectionObj;
+      })
+    : [];
+
+  // Return the formatted result
+  return { sections, mainHeader };
+}
+
 // NA - North America
 // AS - Asia
 // EU - Europe

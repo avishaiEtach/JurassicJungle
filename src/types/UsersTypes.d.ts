@@ -1,3 +1,4 @@
+import { Article } from "./ArticlesTypes";
 import { MyCustomGlobal } from "./classes";
 
 declare global {
@@ -9,6 +10,16 @@ declare global {
     password?: string;
     dob: string;
     permissions?: 1 | 2 | 3 | 4;
+    favArticles: Article[];
+    memberId: any;
+  }
+
+  interface newUser {
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
+    dob: string;
   }
 }
 

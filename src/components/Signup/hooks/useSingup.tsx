@@ -326,7 +326,6 @@ export const useSingup = ({ handleClose }: SingupProps) => {
       password: submitForm.password as string,
       email: submitForm.email as string,
       dob: new Date(year, month - 1, day).toISOString(),
-      _id: "",
     };
     const user: User = await userServices.signup(newUser);
     dispatch(setUser(user));

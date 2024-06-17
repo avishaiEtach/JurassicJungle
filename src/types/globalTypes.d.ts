@@ -7,7 +7,7 @@ declare global {
     label: string;
     showInNavBar: boolean;
     icon: JSX.Element;
-    permissions  : 0|1|2|3|4
+    permissions: 0 | 1 | 2 | 3 | 4;
   }
   interface Dictionary<T = any> {
     [key: string]: T;
@@ -36,8 +36,8 @@ declare global {
 
   interface DinosaurCardProps {
     dinosaur: Dinosaur;
-    setChosenDinosaur: (dinosaur: Dinosaur) => void;
-    handleOpen: () => void;
+    setChosenDinosaur?: (dinosaur: Dinosaur) => void;
+    handleOpen?: () => void;
   }
 
   interface useDinosaursProps {

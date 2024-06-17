@@ -57,8 +57,10 @@ export const useDinosaurCard = ({
   };
 
   const onClick = () => {
-    handleOpen();
-    setChosenDinosaur(dinosaur);
+    if (handleOpen && setChosenDinosaur) {
+      handleOpen();
+      setChosenDinosaur(dinosaur);
+    }
   };
 
   return { getIcons, onClick };

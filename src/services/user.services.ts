@@ -14,7 +14,7 @@ async function login(loginForm: { email: string; password: string }) {
   return await http.post(`/login`, { ...loginForm });
 }
 
-async function signup(user: User): Promise<User> {
+async function signup(user: newUser): Promise<User> {
   return await http.post(`/signup`, { user });
 }
 
