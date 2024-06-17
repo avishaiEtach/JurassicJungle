@@ -1,6 +1,10 @@
 import { http } from "../http";
 
-export const dinosaursServices = { getDinosaurs, searchDinosaurs };
+export const dinosaursServices = {
+  getDinosaurs,
+  searchDinosaurs,
+  createDinosaur,
+};
 
 async function getDinosaurs(
   page = 1,
@@ -22,4 +26,9 @@ async function searchDinosaurs(
     { searchParameters }
   );
   return dinosaurs;
+}
+
+async function createDinosaur(dinosaur: any): Promise<Dinosaur> {
+  const newDinosaur: Dinosaur = await http.post(`/addDinosaur`, { dinosaur });
+  return newDinosaur;
 }

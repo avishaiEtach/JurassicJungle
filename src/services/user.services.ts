@@ -8,6 +8,7 @@ export const userServices = {
   logout,
   signup,
   updateUser,
+  updateMember,
 };
 
 async function login(loginForm: { email: string; password: string }) {
@@ -33,4 +34,8 @@ async function logout() {
 
 async function updateUser(id = "", fieldsToChange: any) {
   return await http.put(`/updateDinosaur/${id}`, { fieldsToChange });
+}
+
+async function updateMember(id = "", fieldsToChange: any) {
+  return await http.put(`/updateMember/${id}`, { fieldsToChange });
 }

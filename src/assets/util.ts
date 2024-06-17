@@ -224,8 +224,9 @@ export function parseDate(dateString: string) {
 }
 
 export function extractSections(articleStr: string): {
-  sections: { header: string; paragraphs?: string[]; list?: string[] }[];
+  sections: { header: string; paragraphs: string[] }[];
   mainHeader: string;
+  list: string[];
 } {
   // Define the regex pattern to match the main header
   const mainHeaderPattern = /<h1>(.*?)<\/h1>/s;
@@ -241,44 +242,49 @@ export function extractSections(articleStr: string): {
   // Use match to get all section matches
   const sectionMatches = articleStr.match(sectionPattern);
 
+  // Initialize list array to collect all <li> items
+  let list: string[] = [];
+
   // If there are no matches, return an empty array
   const sections = sectionMatches
-    ? sectionMatches.map((section) => {
-        // Extract the header
-        const headerMatch = section.match(headerPattern);
-        const header = headerMatch ? headerMatch[1].trim() : "";
+    ? (sectionMatches
+        .map((section) => {
+          // Extract the header
+          const headerMatch = section.match(headerPattern);
+          const header = headerMatch ? headerMatch[1].trim() : "";
 
-        // Extract all paragraphs
-        const paragraphMatches = section.match(paragraphPattern);
-        const paragraphs = paragraphMatches
-          ? paragraphMatches.map((p) => p.replace(/<\/?p>/g, "").trim())
-          : [];
-
-        // Extract all list items if paragraphs are empty
-        const listItemMatches = section.match(listItemPattern);
-        const list =
-          !paragraphMatches && listItemMatches
-            ? listItemMatches.map((li) => li.replace(/<\/?li>/g, "").trim())
+          // Extract all paragraphs
+          const paragraphMatches = section.match(paragraphPattern);
+          const paragraphs = paragraphMatches
+            ? paragraphMatches.map((p) => p.replace(/<\/?p>/g, "").trim())
             : [];
 
-        // Create section object
-        const sectionObj: {
-          header: string;
-          paragraphs?: string[];
-          list?: string[];
-        } = { header };
-        if (paragraphs.length > 0) {
-          sectionObj.paragraphs = paragraphs;
-        } else if (list.length > 0) {
-          sectionObj.list = list;
-        }
+          // Extract all list items
+          const listItemMatches = section.match(listItemPattern);
+          const sectionList =
+            listItemMatches?.map((li) => li.replace(/<\/?li>/g, "").trim()) ??
+            [];
 
-        return sectionObj;
-      })
+          // Add to the global list array if the section has a header
+          if (header && sectionList.length > 0) {
+            list = [...list, ...sectionList];
+          }
+
+          // Create section object only if there are paragraphs
+          if (paragraphs.length > 0) {
+            return { header, paragraphs };
+          } else {
+            return null; // Return null for sections without paragraphs
+          }
+        })
+        .filter((section) => section !== null) as {
+        header: string;
+        paragraphs: string[];
+      }[])
     : [];
 
-  // Return the formatted result
-  return { sections, mainHeader };
+  // Return the formatted result including list
+  return { sections, mainHeader, list };
 }
 
 // NA - North America
