@@ -4,6 +4,7 @@ export const dinosaursServices = {
   getDinosaurs,
   searchDinosaurs,
   createDinosaur,
+  uploadDinosaurImage,
 };
 
 async function getDinosaurs(
@@ -31,4 +32,10 @@ async function searchDinosaurs(
 async function createDinosaur(dinosaur: any): Promise<Dinosaur> {
   const newDinosaur: Dinosaur = await http.post(`/addDinosaur`, { dinosaur });
   return newDinosaur;
+}
+
+async function uploadDinosaurImage(image: string): Promise<string> {
+  console.log("image", image);
+  const url: string = await http.post(`/uploadDinosaurImage`, { image });
+  return url;
 }

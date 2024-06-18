@@ -12,7 +12,7 @@ import { UserArticles } from "../../components/UserPage/UserArticles/UserArticle
 import { ReactComponent as EditDinosaursIcon } from "../../assets/images/editDin.svg";
 import { ReactComponent as EditArticlesIcon } from "../../assets/images/EditArticles.svg";
 import { DinosaurCard } from "../../components/Dinosaurs/DinosaurCard/DinosaurCard";
-import { extractSections } from "../../assets/util";
+import { extractSections, makeId } from "../../assets/util";
 import {
   Button,
   InputAdornment,
@@ -28,6 +28,20 @@ import { ReactComponent as SA } from "../../assets/images/sa.svg";
 import { dinosaursServices } from "../../services/dinosaurs.services";
 import { userServices } from "../../services/user.services";
 import { setUser } from "../../store/users.actions";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { styled } from "@mui/material/styles";
+
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
 
 export function UserPage() {
   const navigate = useNavigate();
@@ -77,9 +91,13 @@ export function UserPage() {
   }, [user]);
 
   interface addDinosaurArticle {
-    sections: { header: string; paragraphs: string[] }[];
+    sections: {
+      id: string;
+      header: string;
+      paragraphs: { id: string; text: string }[];
+    }[];
     mainHeader: string;
-    list: string[];
+    list: { id: string; text: string }[];
     show: boolean;
   }
 
@@ -91,8 +109,14 @@ export function UserPage() {
       useState<addDinosaurArticle>({
         show: false,
         mainHeader: "",
-        sections: [],
-        list: [],
+        sections: [
+          {
+            id: makeId(12),
+            header: "",
+            paragraphs: [{ id: makeId(5), text: "" }],
+          },
+        ],
+        list: [{ id: makeId(12), text: "" }],
       });
     const [createDinosaur, setCreateDinosaur] = useState({
       name: {
@@ -150,6 +174,9 @@ export function UserPage() {
         items: [],
       },
     });
+
+    const [dinosaurImage, setDinosaurImage] = useState<any>("");
+
     const dispatch = useDispatch();
     // type Dinosaur = typeof createDinosaur;
 
@@ -247,7 +274,30 @@ export function UserPage() {
         newDinosaur = { ...newDinosaur, [key]: value.value };
       }
       newDinosaur.image = "";
-      newDinosaur.mainArticle = "";
+
+      if (dinosaurImage !== "") {
+        newDinosaur.image = await dinosaursServices.uploadDinosaurImage(
+          dinosaurImage
+        );
+      }
+
+      let mainArticle = `<article><h1>${addDinosaurArticle.mainHeader}</h1><div><img src=${newDinosaur.image} /></div>`;
+
+      addDinosaurArticle.sections.forEach((section) => {
+        mainArticle += `<section><h2>${section.header}</h2>`;
+        section.paragraphs.forEach((paragraph) => {
+          mainArticle += `<p>${paragraph.text}</p>`;
+        });
+        mainArticle += `</section>`;
+      });
+
+      mainArticle += `<section><h2>Reference</h2><ul>`;
+
+      addDinosaurArticle.list.forEach((reference) => {
+        mainArticle += `<li>${reference.text}</li>`;
+      });
+      mainArticle += `</ul></section></article>`;
+      newDinosaur.mainArticle = mainArticle;
       if (!user) {
         return;
       }
@@ -261,6 +311,195 @@ export function UserPage() {
       dispatch(setUser(res));
       console.log("dinosaur", dinosaur);
     };
+
+    const onChangeArticel = (ev: any, type: string) => {
+      let { name, value } = ev.target;
+      const { sections, list } = addDinosaurArticle;
+      if (type === "mainHeader") {
+        setAddDinosaurArticle((prev) => {
+          return {
+            ...prev,
+            mainHeader: value,
+          };
+        });
+      }
+      if (type === "section") {
+        let sectionIndex = sections.findIndex(
+          (section: any) => section.id === name
+        );
+        sections[sectionIndex].header = value;
+        setAddDinosaurArticle((prev) => {
+          return {
+            ...prev,
+            sections: [...sections],
+          };
+        });
+      }
+      if (type === "paragraph") {
+        name = name.split(" ");
+        //name[0] - section ID
+        //name [1] - paragraph ID
+        let sectionIndex = sections.findIndex(
+          (section: any) => section.id === name[0]
+        );
+        let paragraphIndex = sections[sectionIndex].paragraphs.findIndex(
+          (paragraph: any) => paragraph.id === name[1]
+        );
+        sections[sectionIndex].paragraphs[paragraphIndex].text = value;
+        setAddDinosaurArticle((prev) => {
+          return {
+            ...prev,
+            sections: [...sections],
+          };
+        });
+      }
+      if (type === "reference") {
+        let referenceIndex = list.findIndex(
+          (section: any) => section.id === name
+        );
+        list[referenceIndex].text = value;
+        setAddDinosaurArticle((prev) => {
+          return {
+            ...prev,
+            list: [...list],
+          };
+        });
+      }
+    };
+
+    const MainArticle = (
+      <>
+        <h2>MainArticle</h2>
+        <div>
+          <TextField
+            onChange={(ev) => onChangeArticel(ev, "mainHeader")}
+            name="mainHeader"
+            value={addDinosaurArticle.mainHeader}
+            placeholder="mainHeader"
+          />
+          <Button
+            disabled={addDinosaurArticle.sections.length === 5}
+            onClick={() => {
+              setAddDinosaurArticle((prev) => {
+                return {
+                  ...prev,
+                  sections: [
+                    ...prev.sections,
+                    { id: makeId(12), header: "", paragraphs: [] },
+                  ],
+                };
+              });
+            }}
+            variant="outlined"
+          >
+            Add section
+          </Button>
+          {/* )} */}
+          <div>
+            {addDinosaurArticle.sections.map((section, index) => (
+              <>
+                <Paper
+                  sx={{
+                    // width: "400px",
+                    minHeight: "200px",
+                    marginBottom: "20px",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <div className="flex g20">
+                    <h2>section{index + 1}</h2>
+                    <Button
+                      disabled={
+                        addDinosaurArticle.sections[index].paragraphs.length > 7
+                      }
+                      onClick={() => {
+                        let paragraphs =
+                          addDinosaurArticle.sections[index].paragraphs;
+                        paragraphs.push({ id: makeId(5), text: "" });
+                        let sections = addDinosaurArticle.sections;
+                        sections[index].paragraphs = paragraphs;
+                        setAddDinosaurArticle((prev) => {
+                          return { ...prev, sections: [...sections] };
+                        });
+                      }}
+                      variant="outlined"
+                    >
+                      add paragraph
+                    </Button>
+                  </div>
+                  <h3>header</h3>
+                  <TextField
+                    value={section.header}
+                    onChange={(ev) => onChangeArticel(ev, "section")}
+                    name={section.id}
+                    placeholder="header"
+                  />
+                  {section.paragraphs.map((paragraph, index) => (
+                    <div>
+                      <label>paragraph{index + 1}</label>
+                      <TextField
+                        onChange={(ev) => onChangeArticel(ev, "paragraph")}
+                        name={`${section.id} ${paragraph.id}`}
+                        value={paragraph.text}
+                        multiline
+                        placeholder={`p${index + 1}`}
+                      />
+                    </div>
+                  ))}
+                </Paper>
+              </>
+            ))}
+          </div>
+        </div>
+        <div>
+          <Paper>
+            <div className="flex">
+              <h2>References</h2>
+              <Button
+                disabled={addDinosaurArticle.list.length === 5}
+                onClick={() => {
+                  setAddDinosaurArticle((prev) => {
+                    return {
+                      ...prev,
+                      list: [...prev.list, { id: makeId(12), text: "" }],
+                    };
+                  });
+                }}
+              >
+                Add Reference
+              </Button>
+            </div>
+            <div className="flex column">
+              {addDinosaurArticle.list.map((reference, index) => (
+                <TextField
+                  value={reference.text}
+                  onChange={(ev) => onChangeArticel(ev, "reference")}
+                  name={reference.id}
+                  placeholder={`reference ${index + 1}`}
+                />
+              ))}
+            </div>
+          </Paper>
+        </div>
+      </>
+    );
+
+    const uploadDinosaurImage = (ev: any) => {
+      const file = ev.target.files[0];
+      const reader = new FileReader();
+      if (file) {
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+          setDinosaurImage(reader.result);
+        };
+      } else {
+        setDinosaurImage("");
+      }
+    };
+
+    // console.log("addDinosaurArticle", addDinosaurArticle);
+    // console.log("addDinosaurArticle", dinosaurImage);
 
     return (
       <div>
@@ -276,117 +515,43 @@ export function UserPage() {
             </div>
           ))}
         </div>
-        <div className="flex column">
-          {getInputs()}
-          <Button onClick={onSend} variant="outlined">
-            Send
-          </Button>
-          {!addDinosaurArticle.show && (
-            <Button
-              onClick={() => {
-                setAddDinosaurArticle((prev) => {
-                  return { ...prev, show: true };
-                });
-              }}
-              variant="outlined"
-            >
-              ADD
+        <div className="flex">
+          <div className="flex column">
+            {getInputs()}
+            {MainArticle}
+            <Button onClick={onSend} variant="outlined">
+              Send
             </Button>
-          )}
-          {addDinosaurArticle.show && (
-            <div>
-              <TextField name="mainHeader" placeholder="mainHeader" />
-              {!addDinosaurArticle.sections.length && (
-                <Button
-                  onClick={() => {
-                    setAddDinosaurArticle((prev) => {
-                      return {
-                        ...prev,
-                        sections: [
-                          ...prev.sections,
-                          { header: "", paragraphs: [] },
-                        ],
-                      };
-                    });
+          </div>
+          <div className="flex column align-center g20">
+            <Paper style={{ width: "200px", height: "200px" }}>
+              {dinosaurImage !== "" && (
+                <img
+                  src={dinosaurImage}
+                  style={{
+                    objectFit: "contain",
+                    display: "block",
+                    height: "100%",
+                    width: "100%",
                   }}
-                  variant="outlined"
-                >
-                  ADD
-                </Button>
+                />
               )}
-              <div>
-                {addDinosaurArticle.sections.map((section, index) => (
-                  <>
-                    <Paper
-                      sx={{
-                        width: "400px",
-                        height: "200px",
-                        backgroundColor: "red",
-                        marginBottom: "20px",
-                      }}
-                    >
-                      <h2>section{index + 1}</h2>
-                      <h3>header</h3>
-                      <TextField name="header" placeholder="header" />
-                      {section.paragraphs.map((section, index) => (
-                        <TextField
-                          multiline
-                          name={`p${index}`}
-                          placeholder={`p${index + 1}`}
-                        />
-                      ))}
-                      {!section.paragraphs.length && (
-                        <Button
-                          onClick={() => {
-                            const newSection = {
-                              ...section,
-                              paragraphs: [...section.paragraphs, "AAAAAAAAA"],
-                            };
-
-                            // const newSections =
-                            //   addDinosaurArticle.sections.splice(
-                            //     index,
-                            //     1,
-                            //     newSection
-                            //   );
-                            // console.log("newSections", newSections);
-
-                            setAddDinosaurArticle((prev: any) => {
-                              return {
-                                ...prev,
-                                sections: [newSection],
-                              };
-                            });
-                          }}
-                          variant="outlined"
-                        >
-                          ADDPR
-                        </Button>
-                      )}
-                    </Paper>
-                  </>
-                ))}
-                {addDinosaurArticle.sections.length > 0 && (
-                  <Button
-                    onClick={() => {
-                      setAddDinosaurArticle((prev) => {
-                        return {
-                          ...prev,
-                          sections: [
-                            ...prev.sections,
-                            { header: "", paragraphs: [] },
-                          ],
-                        };
-                      });
-                    }}
-                    variant="outlined"
-                  >
-                    ADD
-                  </Button>
-                )}
-              </div>
-            </div>
-          )}
+            </Paper>
+            <Button
+              component="label"
+              role={undefined}
+              variant="contained"
+              tabIndex={-1}
+              startIcon={<CloudUploadIcon />}
+            >
+              Upload file
+              <VisuallyHiddenInput
+                onChange={uploadDinosaurImage}
+                accept="image/"
+                type="file"
+              />
+            </Button>
+          </div>
         </div>
       </div>
     );
