@@ -43,18 +43,21 @@ export function App() {
     <div className="main-container app">
       <ScrollToTop />
       <AppHeader />
-      {/* <main> */}
-      <Routes>
-        {(!user? routes.filter(route => route.permissions === 0 ) : routes).map((route) => (
-          <Route
-            key={route.path}
-            Component={route.component}
-            path={route.path}
-          />
-        ))}
-        <Route path="*" Component={Page404} />
-      </Routes>
-      {/* </main> */}
+      <main>
+        <Routes>
+          {(!user
+            ? routes.filter((route) => route.permissions === 0)
+            : routes
+          ).map((route) => (
+            <Route
+              key={route.path}
+              Component={route.component}
+              path={route.path}
+            />
+          ))}
+          <Route path="*" Component={Page404} />
+        </Routes>
+      </main>
       <AppFooter />
     </div>
   );

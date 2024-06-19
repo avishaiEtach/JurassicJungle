@@ -5,6 +5,7 @@ export const dinosaursServices = {
   searchDinosaurs,
   createDinosaur,
   uploadDinosaurImage,
+  updateDinosaur,
 };
 
 async function getDinosaurs(
@@ -31,6 +32,13 @@ async function searchDinosaurs(
 
 async function createDinosaur(dinosaur: any): Promise<Dinosaur> {
   const newDinosaur: Dinosaur = await http.post(`/addDinosaur`, { dinosaur });
+  return newDinosaur;
+}
+
+async function updateDinosaur(dinosaur: any, id: string): Promise<Dinosaur> {
+  const newDinosaur: Dinosaur = await http.put(`/updateDinosaur/${id}`, {
+    fieldsToChange: dinosaur,
+  });
   return newDinosaur;
 }
 
