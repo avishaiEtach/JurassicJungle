@@ -92,6 +92,17 @@
   }
   border: 1px solid rgba($black, 0.5) !important;
   color: $black !important;
+
+  &.contained {
+    &:hover {
+      border: 1px solid $black;
+      background-color: $silver_mist;
+      color: $black !important;
+    }
+    background-color: $black;
+    border: 1px solid rgba($black, 0.5) !important;
+    color: $white !important;
+  }
 }
 
 .avatar__skeleton {

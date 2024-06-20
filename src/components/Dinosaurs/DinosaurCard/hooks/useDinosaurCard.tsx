@@ -63,5 +63,5 @@ export const useDinosaurCard = ({
     }
   };
 
-  return { getIcons, onClick };
+  return { getIcons, onClick, getContinentIconAndLabel };
 };

@@ -38,6 +38,7 @@ declare global {
     dinosaur: Dinosaur;
     setChosenDinosaur?: (dinosaur: Dinosaur) => void;
     handleOpen?: () => void;
+    dinosaurChecked?: string;
   }
 
   interface useDinosaursProps {
