@@ -34,6 +34,7 @@ import { styled } from "@mui/material/styles";
 import { MdDelete } from "react-icons/md";
 import { split } from "lodash";
 import { EditCreateDinosaurs } from "../../components/UserPage/EditCreateDinosaurs/EditCreateDinosaurs";
+import Textarea from "@mui/joy/Textarea";
 
 export function UserPage() {
   const navigate = useNavigate();

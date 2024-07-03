@@ -1,4 +1,4 @@
-import { Alert, Snackbar } from "@mui/material";
+import { Alert, Fade, Snackbar } from "@mui/material";
 import { ReactElement, useCallback, useState } from "react";
 
 export const useSnackbarMui = () => {
@@ -9,11 +9,14 @@ export const useSnackbarMui = () => {
   }, [open]);
 
   const handleCloseSnackbar = useCallback(
-    (event?: React.SyntheticEvent | Event, reason?: string) => {
-      if (reason === "clickaway") {
-        return;
-      }
+    // (event?: React.SyntheticEvent | Event, reason?: string) => {
+    //   if (reason === "clickaway") {
+    //     return;
+    //   }
 
+    //   setOpen(false);
+    // },
+    () => {
       setOpen(false);
     },
     [open]
@@ -23,15 +26,17 @@ export const useSnackbarMui = () => {
     children: ReactElement;
   }> = ({ children }) => {
     return (
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={open}
-        sx={{ width: "100%" }}
-        autoHideDuration={3000}
-        onClose={handleCloseSnackbar}
-      >
-        {children}
-      </Snackbar>
+      <Fade in={open}>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={open}
+          sx={{ width: "100%" }}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}
+        >
+          {children}
+        </Snackbar>
+      </Fade>
     );
   };
   return { handleOpenSnackbar, handleCloseSnackbar, SnackbarMUI };

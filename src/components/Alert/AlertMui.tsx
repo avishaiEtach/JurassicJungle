@@ -4,10 +4,10 @@ import {
   AlertPropsVariantOverrides,
   AlertTitle,
 } from "@mui/material";
-import { SyntheticEvent, forwardRef } from "react";
+import { ReactElement, SyntheticEvent, forwardRef } from "react";
 
 interface AlertMuiProps {
-  alertText: string;
+  alertText: string | ReactElement;
   severity?: AlertColor;
   alertTitle?: string;
   icon?: React.ReactNode;
