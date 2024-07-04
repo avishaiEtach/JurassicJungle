@@ -287,6 +287,8 @@ export const useEditCreateDinosaurFunctions = ({
     console.log("dinosaur", dinosaur);
   };
 
+  console.log(chosenDinosaur);
+
   const isHaveHTMLOrScriptCode = (inputString: string) => {
     // Original regex to match and replace all HTML and script tags except <em>
     // return false if don`t have html or script code beside <em> else return true

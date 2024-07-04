@@ -72,7 +72,22 @@ export const EditCreateDinosaurs = () => {
   const { user } = useSelector((state: RootState) => state.usersModel);
 
   if (isInCreatedMode) {
-    return <div style={{ marginTop: "40px" }}>{DinosaurProfile}</div>;
+    return (
+      <>
+        <div style={{ marginTop: "40px" }}>{DinosaurProfile}</div>;
+        {SnackbarMUI({
+          children: (
+            <AlertMui
+              variant="filled"
+              onClose={handleCloseSnackbar}
+              alertText={`Your dinosaur has been ${
+                chosenDinosaur ? "saved" : "created"
+              }  successfully!`}
+            />
+          ),
+        })}
+      </>
+    );
   }
 
   return (
