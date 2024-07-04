@@ -287,6 +287,17 @@ export function extractSections(articleStr: string): {
   return { sections, mainHeader, list };
 }
 
+export function formatString(input: string): string {
+  // Replace underscores with spaces and split by camel case
+  let formattedString = input
+    .replace(/_/g, " ") // Replace underscores with spaces
+    .replace(/([a-z])([A-Z])/g, "$1 $2") // Add space before uppercase letters
+    .toLowerCase() // Convert the entire string to lowercase
+    .replace(/\b\w/g, (char) => char.toUpperCase()); // Capitalize the first letter of each word
+
+  return formattedString;
+}
+
 // NA - North America
 // AS - Asia
 // EU - Europe

@@ -113,3 +113,20 @@
   font-weight: 700;
   margin-bottom: 10px;
 }
+
+.dinosaur__card__radio {
+  padding: 20px 15px;
+  background-color: $white;
+  cursor: pointer;
+  overflow: hidden;
+  @media screen and (max-width: $mobile-breakpoint) {
+    padding: 0 !important;
+  }
+}
+
+.dinosaur__card__radio__container {
+  @media screen and (max-width: $mobile-breakpoint) {
+    flex-direction: column;
+    padding: 0 !important;
+  }
+}

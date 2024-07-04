@@ -14,6 +14,8 @@ interface useDinosaurProfileProps {
   uploadDinosaurImage: any;
   sendLoading: boolean;
   onSend: () => void;
+  isInCreatedMode: boolean;
+  setIsInCreatedMode: (isInCreatedMode: boolean) => void;
 }
 
 export const useDinosaurProfile = ({
@@ -24,6 +26,8 @@ export const useDinosaurProfile = ({
   uploadDinosaurImage,
   sendLoading,
   onSend,
+  isInCreatedMode,
+  setIsInCreatedMode,
 }: useDinosaurProfileProps) => {
   const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
@@ -38,22 +42,21 @@ export const useDinosaurProfile = ({
   });
 
   const DinosaurProfile = (
-    <div
-      className="flex column"
-      style={{
-        paddingInline: "30px",
-        flexBasis: "40%",
-        overflowY: "scroll",
-        maxHeight: "80vh",
-      }}
-    >
-      <div
-        className="flex align-center space-between"
-        style={{ marginBottom: "30px" }}
-      >
-        <h3 style={{ margin: "0px" }}>
+    <div className={`flex column ${isInCreatedMode ? "dinosaur_profile" : ""}`}>
+      <div className="flex align-center space-between dinosaur_profile_header ">
+        <h3>
           <span>{`${chosenDinosaur ? "Edit" : "Create"} Dinosaur`}</span>
         </h3>
+        {isInCreatedMode && (
+          <Button
+            onClick={() => {
+              setIsInCreatedMode(false);
+            }}
+            className="button square"
+          >
+            go back
+          </Button>
+        )}
       </div>
       {chosenDinosaur && (
         <AlertMui
@@ -62,9 +65,9 @@ export const useDinosaurProfile = ({
           alertTitle="Attention please!"
         />
       )}
-      <div className="flex column g30" style={{ marginTop: "40px" }}>
+      <div className="flex column g30 dinosaur_profile__container">
         <div className="flex column align-center g20">
-          <Paper style={{ width: "200px", height: "200px" }}>
+          <Paper className="dinosaur_profile_image_container">
             <img
               src={
                 dinosaurImage !== ""
@@ -73,21 +76,15 @@ export const useDinosaurProfile = ({
                   ? chosenDinosaur.image
                   : "https://res.cloudinary.com/maindevcloud/image/upload/v1718879505/JurassicJungle/g278npqws0lae6vuwev6.png"
               }
-              style={{
-                objectFit: "contain",
-                display: "block",
-                height: "100%",
-                width: "100%",
-              }}
             />
           </Paper>
           <Button
+            className="button contained square"
             component="label"
             role={undefined}
             variant="contained"
             tabIndex={-1}
             startIcon={<CloudUploadIcon />}
-            sx={{ backgroundColor: "black" }}
           >
             Upload file
             <VisuallyHiddenInput
@@ -100,7 +97,7 @@ export const useDinosaurProfile = ({
         {GetInputs}
         {MainArticle}
         <LoadingButton
-          // className="login__button singup__modal contained"
+          className="button"
           onClick={onSend}
           variant="outlined"
           loading={sendLoading}

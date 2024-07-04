@@ -28,6 +28,12 @@ export const useEditCreateDinosaurFunctions = ({
 
   const dispatch = useDispatch();
 
+  const [isInCreatedMode, setIsInCreatedMode] = useState(false);
+
+  const [modalDinosaur, setModalDinosaur] = useState<Dinosaur | undefined>(
+    undefined
+  );
+
   const [chosenDinosaur, setChosenDinosaur] = useState<undefined | Dinosaur>(
     undefined
   );
@@ -197,13 +203,11 @@ export const useEditCreateDinosaurFunctions = ({
         newDinosaur,
         chosenDinosaur._id
       );
-      handleOpenSnackbar();
     } else {
       dinosaur = await dinosaursServices.createDinosaur(newDinosaur);
       fieldsToChange = {
         dinosaurs: [...user.memberId.dinosaurs, dinosaur._id],
       };
-      handleOpenSnackbar();
       setCreateDinosaur({
         name: {
           value: "",
@@ -278,6 +282,7 @@ export const useEditCreateDinosaurFunctions = ({
     await userServices.updateMember(user.memberId._id, fieldsToChange);
     const res: User = await userServices.getLoggedInUser();
     dispatch(setUser(res));
+    handleOpenSnackbar();
     setSendLoading(false);
     console.log("dinosaur", dinosaur);
   };
@@ -303,6 +308,7 @@ export const useEditCreateDinosaurFunctions = ({
   };
 
   const onCreateDinosaur = () => {
+    setIsInCreatedMode(true);
     setCreateDinosaur({
       name: {
         value: "",
@@ -443,5 +449,9 @@ export const useEditCreateDinosaurFunctions = ({
     uploadDinosaurImage,
     sendLoading,
     onSend,
+    isInCreatedMode,
+    setIsInCreatedMode,
+    modalDinosaur,
+    setModalDinosaur,
   };
 };

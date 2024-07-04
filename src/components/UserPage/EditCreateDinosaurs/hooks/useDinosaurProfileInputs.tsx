@@ -5,6 +5,7 @@ import { ReactComponent as EU } from "../../../../assets/images/eu.svg";
 import { ReactComponent as AS } from "../../../../assets/images/as.svg";
 import { ReactComponent as SA } from "../../../../assets/images/sa.svg";
 import { useState } from "react";
+import { formatString } from "../../../../assets/util";
 
 interface useDinosaurProfileInputsProps {
   createDinosaur: Dictionary;
@@ -55,8 +56,13 @@ export const useDinosaurProfileInputs = ({
       {Object.entries(createDinosaur).map(([key, value]: any) => {
         return (
           <TextField
+            className="text__filed"
             placeholder={key}
-            label={value.type === "select" || value.value ? key : undefined}
+            label={
+              value.type === "select" || value.value
+                ? formatString(key)
+                : undefined
+            }
             multiline={value.type === "textarea" ? true : false}
             minRows={value.type === "textarea" ? 4 : undefined}
             select={value.type === "select"}

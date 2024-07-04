@@ -1,5 +1,12 @@
 import { useSelector } from "react-redux";
-import { Button } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import { RootState } from "../../../store/store";
 import { DinosaurCard } from "../../Dinosaurs/DinosaurCard/DinosaurCard";
 import { useSnackbarMui } from "../../Snackbar/useSnackbarMui";
@@ -8,6 +15,11 @@ import { useDinosaurProfile } from "./hooks/useDinosaurProfile";
 import { useMainArticle } from "./hooks/useMainArticle";
 import { useDinosaurProfileInputs } from "./hooks/useDinosaurProfileInputs";
 import { useEditCreateDinosaurFunctions } from "./hooks/useEditCreateDinosaurFunctions";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import PreviewIcon from "@mui/icons-material/Preview";
+import "./EditCreateDinosaurs.scss";
+import { useState } from "react";
+import { useModal } from "../../Modal/useModal";
 
 export const EditCreateDinosaurs = () => {
   const { handleOpenSnackbar, handleCloseSnackbar, SnackbarMUI } =
@@ -26,6 +38,10 @@ export const EditCreateDinosaurs = () => {
     uploadDinosaurImage,
     sendLoading,
     onSend,
+    isInCreatedMode,
+    setIsInCreatedMode,
+    modalDinosaur,
+    setModalDinosaur,
   } = useEditCreateDinosaurFunctions({ handleOpenSnackbar });
 
   const { GetInputs } = useDinosaurProfileInputs({
@@ -47,20 +63,22 @@ export const EditCreateDinosaurs = () => {
     uploadDinosaurImage,
     sendLoading,
     onSend,
+    isInCreatedMode,
+    setIsInCreatedMode,
   });
+
+  const { handleOpen, MUIModal } = useModal();
 
   const { user } = useSelector((state: RootState) => state.usersModel);
 
+  if (isInCreatedMode) {
+    return <div style={{ marginTop: "40px" }}>{DinosaurProfile}</div>;
+  }
+
   return (
     <>
-      <div className="flex" style={{ marginTop: "40px" }}>
-        <div
-          style={{
-            borderRight: "1px solid black",
-            flexBasis: "60%",
-            paddingRight: "30px",
-          }}
-        >
+      <div style={{ marginTop: "40px" }}>
+        <div>
           <div
             className="flex align-center space-between"
             style={{ marginBottom: "30px" }}
@@ -76,20 +94,39 @@ export const EditCreateDinosaurs = () => {
           </div>
           <div className="flex column g15">
             {user?.memberId.dinosaurs.map((dinosaur: any) => (
-              <div
+              <Accordion
                 onClick={() => {
                   setChosenDinosaur(dinosaur);
                 }}
               >
-                <DinosaurCard
-                  dinosaurChecked={chosenDinosaur?._id ?? "createDinosaur"}
-                  dinosaur={dinosaur}
-                />
-              </div>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1-content"
+                  id="panel1-header"
+                >
+                  <div className="flex align-center space-between accordion__summary__container ">
+                    <Tooltip arrow title="show article">
+                      <IconButton
+                        onClick={(ev) => {
+                          ev.stopPropagation();
+                          setModalDinosaur(dinosaur);
+                          handleOpen();
+                        }}
+                      >
+                        <PreviewIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <DinosaurCard
+                      dinosaurChecked={chosenDinosaur?._id ?? "createDinosaur"}
+                      dinosaur={dinosaur}
+                    />
+                  </div>
+                </AccordionSummary>
+                <AccordionDetails>{DinosaurProfile}</AccordionDetails>
+              </Accordion>
             ))}
           </div>
         </div>
-        {DinosaurProfile}
       </div>
       {SnackbarMUI({
         children: (
@@ -101,6 +138,9 @@ export const EditCreateDinosaurs = () => {
             }  successfully!`}
           />
         ),
+      })}
+      {MUIModal({
+        injectHtml: modalDinosaur ? modalDinosaur.mainArticle : undefined,
       })}
     </>
   );

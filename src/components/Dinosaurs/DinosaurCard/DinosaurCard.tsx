@@ -36,22 +36,22 @@ export const DinosaurCard = ({
   } else {
     return (
       <Paper
-        elevation={2}
-        className="flex align-center"
+        elevation={0}
+        className="flex align-center dinosaur__card__radio"
         sx={{
           padding: "20px 15px",
           backgroundColor: "white",
           cursor: "pointer",
         }}
       >
-        <Radio
+        {/* <Radio
           color="default"
           checked={
             dinosaurChecked && dinosaurChecked === dinosaur._id ? true : false
           }
           sx={{ marginRight: "20px" }}
-        />
-        <div className="flex">
+        /> */}
+        <div className="flex dinosaur__card__radio__container">
           <div
             style={{
               width: "60px",
