@@ -11,6 +11,7 @@ import { setUserAvatarLoader, setUser } from "./store/users.actions";
 import Cookies from "js-cookie";
 import { RootState } from "./store/store";
 import { Page404 } from "./pages/404/Page404";
+import { ResizeObserverFix } from "./components/ResizeObserver/ResizeObserver";
 
 export function App() {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ export function App() {
   return (
     <div className="main-container app">
       <ScrollToTop />
+      <ResizeObserverFix />
       <AppHeader />
       <main>
         <Routes>

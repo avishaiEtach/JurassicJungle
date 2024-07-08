@@ -25,6 +25,8 @@ export const EditCreateDinosaurs = () => {
   const { handleOpenSnackbar, handleCloseSnackbar, SnackbarMUI } =
     useSnackbarMui();
 
+  const { handleOpen, MUIModal } = useModal();
+
   const {
     onCreateDinosaur,
     setChosenDinosaur,
@@ -65,16 +67,18 @@ export const EditCreateDinosaurs = () => {
     onSend,
     isInCreatedMode,
     setIsInCreatedMode,
+    addDinosaurArticle,
+    createDinosaur,
+    setModalDinosaur,
+    modalDinosaur,
   });
-
-  const { handleOpen, MUIModal } = useModal();
 
   const { user } = useSelector((state: RootState) => state.usersModel);
 
   if (isInCreatedMode) {
     return (
       <>
-        <div style={{ marginTop: "40px" }}>{DinosaurProfile}</div>;
+        <div style={{ marginTop: "40px" }}>{DinosaurProfile}</div>
         {SnackbarMUI({
           children: (
             <AlertMui

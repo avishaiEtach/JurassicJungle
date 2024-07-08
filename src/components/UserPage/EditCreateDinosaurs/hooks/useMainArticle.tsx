@@ -2,6 +2,8 @@ import { Button, IconButton, Paper, TextField } from "@mui/material";
 import { makeId } from "../../../../assets/util";
 import { AlertMui } from "../../../Alert/AlertMui";
 import { MdDelete } from "react-icons/md";
+import Textarea from "@mui/joy/Textarea";
+import { useEffect, useState } from "react";
 
 interface addDinosaurArticle {
   sections: {
@@ -272,6 +274,7 @@ export const useMainArticle = ({
                   title="reference"
                 />
                 <TextField
+                  // inputProps={{ type: "textarea", minRows: 2 }}
                   className="text__filed"
                   value={reference.text}
                   onChange={(ev) => onChangeArticel(ev, "reference")}
