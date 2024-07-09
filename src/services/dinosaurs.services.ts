@@ -43,7 +43,6 @@ async function updateDinosaur(dinosaur: any, id: string): Promise<Dinosaur> {
 }
 
 async function uploadDinosaurImage(image: string): Promise<string> {
-  console.log("image", image);
   const url: string = await http.post(`/uploadDinosaurImage`, { image });
   return url;
 }

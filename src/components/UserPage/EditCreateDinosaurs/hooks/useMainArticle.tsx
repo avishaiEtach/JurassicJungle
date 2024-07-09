@@ -2,7 +2,6 @@ import { Button, IconButton, Paper, TextField } from "@mui/material";
 import { makeId } from "../../../../assets/util";
 import { AlertMui } from "../../../Alert/AlertMui";
 import { MdDelete } from "react-icons/md";
-import Textarea from "@mui/joy/Textarea";
 import { useEffect, useState } from "react";
 
 interface addDinosaurArticle {

@@ -10,15 +10,13 @@
   background-color: $white;
   box-shadow: 0px 11px 15px -7px rgba($black, 0.2),
     0px 24px 38px 3px rgba($black, 0.14), 0px 9px 46px 8px rgba($black, 0.12);
-  padding: 32px;
-  overflow-y: scroll;
+  padding-inline: 10px;
   padding-top: 50px;
   border-radius: 10px;
 
   &.small__box {
     width: 500px;
     height: 70%;
-    overflow: auto;
     padding-top: 30px;
     @media screen and (max-width: $mobile-breakpoint) {
       min-width: 320px;
@@ -33,6 +31,14 @@
     width: 700px;
     height: 800px;
   }
+}
+
+.modal__box__container {
+  margin-top: 20px;
+  height: 95%;
+  padding: 32px;
+  padding-top: 0;
+  overflow-y: scroll;
 }
 
 .modal__close__button {

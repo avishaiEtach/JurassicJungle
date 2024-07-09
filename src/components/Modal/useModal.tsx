@@ -44,17 +44,19 @@ export function useModal() {
         >
           <Fade in={open}>
             <Box className={`modal__box ${small ? "small__box" : ""}`}>
-              <IconButton
-                className="modal__close__button"
-                onClick={handleClose}
-              >
-                <IoClose />
-              </IconButton>
-              {children ? (
-                children
-              ) : injectHtml ? (
-                <div className="injectHtml">{parse(injectHtml)}</div>
-              ) : undefined}
+              <div className="modal__box__container">
+                <IconButton
+                  className="modal__close__button"
+                  onClick={handleClose}
+                >
+                  <IoClose />
+                </IconButton>
+                {children ? (
+                  children
+                ) : injectHtml ? (
+                  <div className="injectHtml">{parse(injectHtml)}</div>
+                ) : undefined}
+              </div>
             </Box>
           </Fade>
         </Modal>
