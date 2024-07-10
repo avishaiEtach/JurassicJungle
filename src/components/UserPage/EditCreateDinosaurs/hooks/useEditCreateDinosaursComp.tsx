@@ -4,22 +4,11 @@ import {
   InputAdornment,
   MenuItem,
   Paper,
-  Popover,
   styled,
   TextField,
 } from "@mui/material";
-import {
-  ChangeEvent,
-  Dispatch,
-  MouseEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { ChangeEvent, MouseEvent, useCallback, useMemo } from "react";
 import { MdDelete } from "react-icons/md";
-import parse from "html-react-parser";
-import { IoClose } from "react-icons/io5";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { formatString } from "../../../../assets/util";
@@ -28,118 +17,8 @@ import { ReactComponent as AF } from "../../../../assets/images/af.svg";
 import { ReactComponent as EU } from "../../../../assets/images/eu.svg";
 import { ReactComponent as AS } from "../../../../assets/images/as.svg";
 import { ReactComponent as SA } from "../../../../assets/images/sa.svg";
-
-export interface EditDinosaur {
-  name: Name;
-  description: Description;
-  continent: Continent;
-  diet: Diet;
-  family: Family;
-  weight: Weight;
-  time_on_earth: TimeOnEarth;
-  period: Period;
-  bodyLength: BodyLength;
-  image: Image;
-  mainArticle: MainArticle;
-}
-
-export interface Name {
-  value: string;
-  type: string;
-  items: any[];
-}
-
-export interface Description {
-  value: string;
-  type: string;
-  items: any[];
-}
-
-export interface Continent {
-  value: string;
-  type: string;
-  items: string[];
-}
-
-export interface Diet {
-  value: string;
-  type: string;
-  items: string[];
-}
-
-export interface Family {
-  value: string;
-  type: string;
-  items: any[];
-}
-
-export interface Weight {
-  value: string;
-  type: string;
-  items: any[];
-}
-
-export interface TimeOnEarth {
-  value: string;
-  type: string;
-  items: any[];
-}
-
-export interface Period {
-  value: string;
-  type: string;
-  items: any[];
-}
-
-export interface BodyLength {
-  value: string;
-  type: string;
-  items: any[];
-}
-
-export interface Image {
-  value: string;
-  type: string;
-  items: any[];
-}
-
-export interface MainArticle {
-  value: Value;
-  type: string;
-  items: any[];
-}
-
-export interface Value {
-  mainHeader: string;
-  sections: Section[];
-  list: List[];
-}
-
-export interface Section {
-  id: string;
-  header: string;
-  paragraphs: Paragraph[];
-}
-
-export interface Paragraph {
-  id: string;
-  text: string;
-}
-
-export interface List {
-  id: string;
-  text: string;
-}
-
-interface DinosaurMainArticle {
-  sections: {
-    id: string;
-    header: string;
-    paragraphs: { id: string; text: string }[];
-  }[];
-  mainHeader: string;
-  list: { id: string; text: string }[];
-}
+import { useModal } from "../../../Modal/useModal";
+import { AlertMui } from "../../../Alert/AlertMui";
 
 interface useEditCreateDinosaursCompProps {
   editDinosaur: EditDinosaur;
@@ -286,7 +165,7 @@ export const useEditCreateDinosaursComp = ({
       if (isDinosaurMainArticleProperty(key)) {
         if (key === "mainHeader") {
           inputs.unshift(
-            <div style={{ marginBottom: "30px" }}>
+            <div className="edit__dinosaur__main__article__main__header">
               <h3>{formatString(key)}</h3>
               <TextField
                 className="text__filed"
@@ -302,15 +181,10 @@ export const useEditCreateDinosaursComp = ({
         } else if (key === "sections") {
           mainArticle.sections.forEach((section, sectionIndex) => {
             inputs.push(
-              <div style={{ marginBottom: "30px" }}>
-                <div
-                  style={{ marginBottom: "10px" }}
-                  className="flex align-center space-between"
-                >
+              <div className="edit__dinosaur__main__article__section__container">
+                <div className="flex align-center space-between edit__dinosaur__main__article__section__header">
                   <div className="flex align-center g30">
-                    <h4 style={{ margin: 0 }}>{`sections ${
-                      sectionIndex + 1
-                    }`}</h4>
+                    <h4>{`sections ${sectionIndex + 1}`}</h4>
                     <IconButton
                       disabled={mainArticle.sections.length === 1}
                       onClick={() =>
@@ -338,11 +212,9 @@ export const useEditCreateDinosaursComp = ({
                   />
                 </div>
                 {section.paragraphs.map((paragraph, paragraphIndex) => (
-                  <div style={{ marginBottom: "30px" }}>
+                  <div className="edit__dinosaur__main__article__paragraph__container">
                     <div className="flex align-center space-between g10">
-                      <h5 style={{ margin: 0 }}>{`paragraph ${
-                        paragraphIndex + 1
-                      }`}</h5>
+                      <h5>{`paragraph ${paragraphIndex + 1}`}</h5>
                       <IconButton
                         disabled={section.paragraphs.length === 1}
                         onClick={() =>
@@ -402,11 +274,28 @@ export const useEditCreateDinosaursComp = ({
           inputs.push(
             <div>
               <h2>References</h2>
+              <div style={{ marginBlock: "20px" }}>
+                <AlertMui
+                  severity="info"
+                  alertText={
+                    <div className="flex column g10">
+                      <span>
+                        If you want that{" "}
+                        <em>
+                          <b>text to be like that</b>
+                        </em>
+                        , add
+                        <em>&lt;em&gt;&lt;/em&gt;</em> to the text.
+                      </span>
+                    </div>
+                  }
+                />
+              </div>
               <div>
                 {mainArticle.list.map((reference, index) => (
-                  <div style={{ marginBottom: "30px" }}>
+                  <div className="edit__dinosaur__main__article__reference__container">
                     <div className="flex align-center space-between g10">
-                      <h5 style={{ margin: 0 }}>{`reference ${index + 1}`}</h5>
+                      <h5>{`reference ${index + 1}`}</h5>
                       <IconButton
                         disabled={mainArticle.list.length === 1}
                         onClick={() =>
@@ -448,7 +337,9 @@ export const useEditCreateDinosaursComp = ({
     return (
       <div className="flex column g20">
         <div className="flex align-center  space-between">
-          <h2 style={{ margin: 0 }}>Main Article</h2>
+          <h2 className="edit__dinosaur__main__article__header">
+            Main Article
+          </h2>
           <Button onClick={onShowDinosaurArticle} className="button">
             Show Dinosaur Article
           </Button>
@@ -458,7 +349,7 @@ export const useEditCreateDinosaursComp = ({
     );
   }, [editDinosaur]);
 
-  const ShowEditDinosaurModal = useCallback(() => {
+  const ShowEditDinosaurModal = useMemo(() => {
     return (
       <div className="flex column g30">
         <div>
@@ -466,8 +357,15 @@ export const useEditCreateDinosaursComp = ({
             dinosaurState.state === "edit" ? "Edit" : "Create"
           } Dinosaur`}</h1>
         </div>
+        {dinosaurState.state === "edit" && (
+          <AlertMui
+            severity="warning"
+            alertText="The operations you make here will affect all the dinosaur variants."
+            alertTitle="Attention please!"
+          />
+        )}
         <div className="flex column justify-center align-center g20">
-          <Paper className="dinosaur_profile_image_container">
+          <Paper className="edit__dinosaur__image__container">
             <img src={editDinosaur.image.value} />
           </Paper>
           <Button
@@ -489,7 +387,7 @@ export const useEditCreateDinosaursComp = ({
         {ShowDinosaurMainDetailsInputs}
         {ShowDinosaurMainArticleInputs}
         <LoadingButton
-          className="button contained"
+          className="button contained "
           onClick={saveDinosaur}
           variant="outlined"
           loading={saveDinosaurLoading}
@@ -498,7 +396,7 @@ export const useEditCreateDinosaursComp = ({
         </LoadingButton>
       </div>
     );
-  }, [editDinosaur]);
+  }, [editDinosaur, saveDinosaurLoading]);
 
   return { ShowEditDinosaurModal };
 };

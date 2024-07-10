@@ -1,58 +1,64 @@
 @import "../../../assets/styles/setup/setup";
 
-.main_article_container {
-  position: relative;
-  h4,
-  h2 {
+.user__dinosaurs__main__container {
+  padding-block: 40px;
+  h1 {
     margin: 0;
   }
 }
 
-.sections__paper {
-  display: flex;
-  flex-direction: column;
-  margin-block: 30px;
-  gap: 10px;
-  padding: 20px 15px;
-}
-
-.add_section {
-  margin-top: 20px;
-}
-
-.references_paper {
-  padding: 15px 20px;
-  padding-bottom: 30px;
-}
-
-.headerLine {
-  margin-bottom: 10px;
-  h4:last-child,
-  h3:last-child,
-  h2:last-child {
-    margin-block: 11px;
-  }
-}
-
-.dinosaur_profile {
-  padding-inline: 30px;
-  flex-basis: 40%;
-  overflow-y: scroll;
-  max-height: 80vh;
-}
-
-.dinosaur_profile_header {
+.user__dinosaurs__main__header {
   margin-bottom: 30px;
-  h3 {
+}
+
+.dinosaur__article__popover {
+  max-width: 600px !important;
+  max-height: 700px !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-70%, -50%) !important;
+  @media screen and (max-width: 450px) {
+    max-height: 550px !important;
+    transform: translate(-50%, -50%) !important;
+  }
+}
+
+.dinosaur__article__popover__main__container {
+  padding: 30px;
+}
+
+.dinosaur__article__popover__text {
+  margin-top: 30px;
+}
+
+.edit__dinosaur__main__article__main__header {
+  margin-bottom: 30px;
+}
+
+.edit__dinosaur__main__article__section__container {
+  margin-bottom: 30px;
+}
+
+.edit__dinosaur__main__article__section__header {
+  margin-bottom: 10px;
+  h4 {
+    margin-bottom: 0px;
+  }
+}
+
+.edit__dinosaur__main__article__header {
+  margin: 0;
+}
+
+.edit__dinosaur__main__article__paragraph__container,
+.edit__dinosaur__main__article__reference__container {
+  margin-bottom: 30px;
+  h5 {
     margin: 0;
   }
 }
 
-.dinosaur_profile__container {
-  margin-top: 40px;
-}
-
-.dinosaur_profile_image_container {
+.edit__dinosaur__image__container {
   width: 200px;
   height: 200px;
   img {
@@ -60,11 +66,5 @@
     display: block;
     height: 100%;
     width: 100%;
-  }
-}
-
-.accordion__summary__container {
-  @media screen and (max-width: $mobile-breakpoint) {
-    flex-direction: column;
   }
 }
