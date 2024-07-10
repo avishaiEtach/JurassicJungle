@@ -70,6 +70,8 @@ export function UserPage() {
     },
   ];
 
+  console.log("user", user);
+
   useEffect(() => {
     if (!user) {
       navigate(routesPath.home);

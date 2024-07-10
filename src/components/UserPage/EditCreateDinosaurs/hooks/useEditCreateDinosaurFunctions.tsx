@@ -96,6 +96,8 @@ export const useEditCreateDinosaurFunctions = ({
     dinosaurId: "",
   });
 
+  const [onClickImage, setOnClickImage] = useState(false);
+
   const { user } = useSelector((state: RootState) => state.usersModel);
 
   const dispatch = useDispatch();
@@ -146,6 +148,7 @@ export const useEditCreateDinosaurFunctions = ({
 
   const onChooseDinosaur = (dinosaur: Dinosaur) => {
     setDinosaurState({ state: "edit", dinosaurId: dinosaur._id });
+    setOnClickImage(false);
     const dinosaurToInputs: Dictionary = {};
     for (const key in editDinosaur) {
       if (isDinosaurProperty(key) && key !== "mainArticle") {
@@ -196,6 +199,7 @@ export const useEditCreateDinosaurFunctions = ({
   };
 
   const uploadDinosaurImage = (ev: any) => {
+    setOnClickImage(true);
     const file = ev.target.files[0];
     const reader = new FileReader();
     if (file) {
@@ -223,6 +227,7 @@ export const useEditCreateDinosaurFunctions = ({
 
   const onClickCreateDinosaur = () => {
     setDinosaurState({ state: "create", dinosaurId: "" });
+    setOnClickImage(false);
     setEditDinosaur({
       name: {
         value: "",
@@ -417,10 +422,11 @@ export const useEditCreateDinosaurFunctions = ({
 
     let dinosaurImage = editDinosaur.image.value;
 
-    if (dinosaurImage !== "") {
+    if (onClickImage) {
       dinosaurImage = await dinosaursServices.uploadDinosaurImage(
         dinosaurImage
       );
+      savedDinosaur.image = dinosaurImage;
     }
 
     const editArticle = editDinosaur.mainArticle.value;
@@ -441,7 +447,7 @@ export const useEditCreateDinosaurFunctions = ({
     if (!user) {
       return;
     }
-    savedDinosaur.author = user._id;
+    savedDinosaur.author = user.memberId._id;
     let dinosaur = null;
     let fieldsToChange = {};
     if (dinosaurState.state === "edit") {
@@ -527,7 +533,10 @@ export const useEditCreateDinosaurFunctions = ({
           items: [],
         },
       });
+    } else {
+      onChooseDinosaur(dinosaur);
     }
+    setOnClickImage(false);
     setSaveDinosaurLoading(false);
     handleOpenSnackbar();
   };
