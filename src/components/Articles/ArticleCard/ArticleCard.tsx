@@ -12,11 +12,13 @@ import "./ArticleCard.scss";
 interface ArticleCardProps {
   article: Article;
   withSubTitle?: boolean;
+  withOutOnClick?: boolean;
 }
 
 export const ArticleCard = ({
   article,
   withSubTitle = false,
+  withOutOnClick = false,
 }: ArticleCardProps) => {
   const navigate = useNavigate();
 
@@ -25,7 +27,10 @@ export const ArticleCard = ({
   };
 
   return (
-    <div onClick={onClick} className="article__card">
+    <div
+      onClick={!withOutOnClick ? onClick : undefined}
+      className="article__card"
+    >
       <div className="icons__container flex align-center space-between">
         <div>{article.favoriteGrade}</div>
         <div>

@@ -367,6 +367,15 @@ export const UserProfile = () => {
             ))}
           </TextField>
         </div>
+        {user?.memberId && (
+          <TextField
+            className={`singup__text__filed`}
+            label={splitCamelCaseToSnakeCase("academicTitle")}
+            name={"academicTitle"}
+            defaultValue={user?.memberId.academicTitle}
+            disabled
+          />
+        )}
         <div className="flex g10">
           <Button className="login__button">Change Password</Button>
           <Button className="login__button" onClick={handleSubmit}>

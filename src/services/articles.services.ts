@@ -7,6 +7,7 @@ export const articlesServices = {
   getBestArticles,
   getKeywords,
   searchArticles,
+  updateArticle,
 };
 
 async function getArticles(): Promise<Article[]> {
@@ -39,4 +40,11 @@ async function searchArticles(
     { searchParameters }
   );
   return articles;
+}
+
+async function updateArticle(article: any, id: string): Promise<Article> {
+  const newArticle: Article = await http.put(`/updateArticle/${id}`, {
+    fieldsToChange: article,
+  });
+  return newArticle;
 }

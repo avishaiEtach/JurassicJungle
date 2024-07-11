@@ -34,6 +34,7 @@ import { styled } from "@mui/material/styles";
 import { MdDelete } from "react-icons/md";
 import { split } from "lodash";
 import { EditCreateDinosaurs } from "../../components/UserPage/EditCreateDinosaurs/EditCreateDinosaurs";
+import { EditCreateArticles } from "../../components/UserPage/EditCreateArticles/EditCreateArticles";
 
 export function UserPage() {
   const navigate = useNavigate();
@@ -83,10 +84,6 @@ export function UserPage() {
       setCatagories(catagories);
     }
   }, [user]);
-
-  const EditCreateArticles = () => {
-    return <div>EditCreateArticles</div>;
-  };
 
   const UserComponentReader = () => {
     switch (chooseUser) {

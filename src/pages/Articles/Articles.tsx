@@ -24,6 +24,7 @@ export function Articles() {
           search={search}
         />
       </div>
+
       {loading || !articles.length ? (
         <div className="flex align-center justify-center dinosaurs__loader__container">
           {loading ? <Loader /> : <div>no articles</div>}

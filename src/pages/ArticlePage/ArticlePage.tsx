@@ -41,6 +41,9 @@ export function ArticlePage() {
             <span>{getDate(new Date(article.date))}</span>
           </div>
         </div>
+        <div>
+          <img src={article.articleMainImage} />
+        </div>
         {parse(article.content)}
       </article>
     </div>

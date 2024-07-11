@@ -25,7 +25,7 @@ export const routes: Routes[] = [
     label: "Home",
     showInNavBar: true,
     icon: <FaHome />,
-    permissions:0,
+    permissions: 0,
   },
   {
     path: routesPath.aboutUs,
@@ -33,7 +33,7 @@ export const routes: Routes[] = [
     label: "About Us",
     showInNavBar: true,
     icon: <HiUserGroup />,
-    permissions:0,
+    permissions: 0,
   },
   {
     path: routesPath.dinosaurs,
@@ -41,7 +41,7 @@ export const routes: Routes[] = [
     label: "Dinosaurs",
     showInNavBar: true,
     icon: <></>,
-    permissions:0,
+    permissions: 0,
   },
   {
     path: routesPath.blog,
@@ -49,7 +49,7 @@ export const routes: Routes[] = [
     label: "Articles",
     showInNavBar: true,
     icon: <></>,
-    permissions:0,
+    permissions: 0,
   },
   {
     path: routesPath.contact,
@@ -57,7 +57,7 @@ export const routes: Routes[] = [
     label: "Contact Us",
     showInNavBar: true,
     icon: <></>,
-    permissions:0,
+    permissions: 0,
   },
   {
     path: routesPath.articlePage,
@@ -65,7 +65,7 @@ export const routes: Routes[] = [
     label: "",
     showInNavBar: false,
     icon: <></>,
-    permissions:0,
+    permissions: 0,
   },
   {
     path: routesPath.account,
@@ -73,10 +73,9 @@ export const routes: Routes[] = [
     label: "",
     showInNavBar: false,
     icon: <></>,
-    permissions:1,
+    permissions: 1,
   },
 ];
-
 
 export function replaceRouteParam(
   routePattern: string,
