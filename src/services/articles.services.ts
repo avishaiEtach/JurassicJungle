@@ -8,6 +8,8 @@ export const articlesServices = {
   getKeywords,
   searchArticles,
   updateArticle,
+  uploadArticleImage,
+  createArticle,
 };
 
 async function getArticles(): Promise<Article[]> {
@@ -46,5 +48,15 @@ async function updateArticle(article: any, id: string): Promise<Article> {
   const newArticle: Article = await http.put(`/updateArticle/${id}`, {
     fieldsToChange: article,
   });
+  return newArticle;
+}
+
+async function uploadArticleImage(image: string): Promise<string> {
+  const url: string = await http.post(`/uploadArticleImage`, { image });
+  return url;
+}
+
+async function createArticle(article: Article): Promise<Article> {
+  const newArticle: Article = await http.post(`/addArticle`, { article });
   return newArticle;
 }
