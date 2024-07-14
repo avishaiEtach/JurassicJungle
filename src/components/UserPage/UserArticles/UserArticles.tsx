@@ -9,7 +9,7 @@ export const UserArticles = () => {
       <h1 style={{ marginTop: "20px" }}>Favorite Articles</h1>
       <div className="articles__container">
         {user?.favArticles.length ? (
-          user?.favArticles.map((article) => (
+          (user?.favArticles as Article[]).map((article) => (
             <ArticleCard article={article} withSubTitle={true} />
           ))
         ) : (

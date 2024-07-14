@@ -33,7 +33,7 @@ async function logout() {
 }
 
 async function updateUser(id = "", fieldsToChange: any) {
-  return await http.put(`/updateDinosaur/${id}`, { fieldsToChange });
+  return await http.put(`/updateUser/${id}`, { fieldsToChange });
 }
 
 async function updateMember(id = "", fieldsToChange: any) {

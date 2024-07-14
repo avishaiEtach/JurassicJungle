@@ -8,6 +8,12 @@ import { IoIosArrowForward } from "react-icons/io";
 import { replaceRouteParam, routesPath } from "../../../routes";
 import { Article } from "../../../types/ArticlesTypes";
 import "./ArticleCard.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+import { userServices } from "../../../services/user.services";
+import { setUser } from "../../../store/users.actions";
+import { ChangeEvent } from "react";
+import { useArticleCard } from "./hooks/useArticleCard";
 
 interface ArticleCardProps {
   article: Article;
@@ -20,11 +26,8 @@ export const ArticleCard = ({
   withSubTitle = false,
   withOutOnClick = false,
 }: ArticleCardProps) => {
-  const navigate = useNavigate();
-
-  const onClick = () => {
-    navigate(replaceRouteParam(routesPath.articlePage, article._id));
-  };
+  const { user } = useSelector((state: RootState) => state.usersModel);
+  const { onClick, onChange } = useArticleCard({ article });
 
   return (
     <div
@@ -38,6 +41,13 @@ export const ArticleCard = ({
             onClick={(ev) => {
               ev.stopPropagation();
             }}
+            disabled={!user}
+            checked={
+              !!user?.favArticles.find(
+                (articleCheck) => articleCheck._id === article._id
+              )
+            }
+            onChange={onChange}
             icon={<FaRegStar />}
             checkedIcon={<FaStar />}
           />
