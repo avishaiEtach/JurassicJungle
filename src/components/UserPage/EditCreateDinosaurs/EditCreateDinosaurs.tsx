@@ -36,7 +36,7 @@ export const EditCreateDinosaurs = () => {
           </Button>
         </div>
         <div className="dinosaurs__container card-grid">
-          {user?.memberId.dinosaurs.map((dinosaur: Dinosaur) => (
+          {user?.memberId?.dinosaurs.map((dinosaur: Dinosaur) => (
             <div onClick={() => params.onChooseDinosaur(dinosaur)}>
               <DinosaurCard dinosaur={dinosaur} />
             </div>

@@ -447,7 +447,7 @@ export const useEditCreateDinosaurFunctions = ({
     if (!user) {
       return;
     }
-    savedDinosaur.author = user.memberId._id;
+    savedDinosaur.author = user?.memberId?._id;
     let dinosaur = null;
     let fieldsToChange = {};
     if (dinosaurState.state === "edit") {
@@ -458,10 +458,10 @@ export const useEditCreateDinosaurFunctions = ({
     } else {
       dinosaur = await dinosaursServices.createDinosaur(savedDinosaur);
       fieldsToChange = {
-        dinosaurs: [...user.memberId.dinosaurs, dinosaur._id],
+        dinosaurs: [...(user?.memberId?.dinosaurs ?? []), dinosaur._id],
       };
     }
-    await userServices.updateMember(user.memberId._id, fieldsToChange);
+    await userServices.updateMember(user?.memberId?._id, fieldsToChange);
     const res: User = await userServices.getLoggedInUser();
     dispatch(setUser(res));
     if (dinosaurState.state === "create") {

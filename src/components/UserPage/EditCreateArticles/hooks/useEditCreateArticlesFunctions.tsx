@@ -253,7 +253,7 @@ export const useEditCreateArticlesFunctions = ({
       savedArticle.thumbnailImage = thumbnailImage;
     }
     if (editArticle.articleId.value === "") {
-      savedArticle.author = user.memberId._id;
+      savedArticle.author = user?.memberId?._id;
       article = await articlesServices.createArticle(savedArticle as Article);
       setEditArticle({
         images: {
@@ -303,7 +303,7 @@ export const useEditCreateArticlesFunctions = ({
         },
       });
       fieldsToChange = {
-        articles: [...user.memberId.articles, article._id],
+        articles: [...(user?.memberId?.articles ?? []), article._id],
       };
     } else {
       article = await articlesServices.updateArticle(
@@ -312,7 +312,7 @@ export const useEditCreateArticlesFunctions = ({
       );
       onChooseArticle(article as Article);
     }
-    await userServices.updateMember(user.memberId._id, fieldsToChange);
+    await userServices.updateMember(user?.memberId?._id, fieldsToChange);
     const res: User = await userServices.getLoggedInUser();
     dispatch(setUser(res));
     setSaveArticleLoading(false);

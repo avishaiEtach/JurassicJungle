@@ -32,7 +32,7 @@ export const EditCreateArticles = () => {
           </Button>
         </div>
         <div className="articles__container card-grid">
-          {user?.memberId.articles.map((article: Article) => (
+          {user?.memberId?.articles.map((article: Article) => (
             <div onClick={() => params.onChooseArticle(article)}>
               <ArticleCard withOutOnClick={true} article={article} />
             </div>

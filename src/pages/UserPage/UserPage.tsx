@@ -35,6 +35,8 @@ import { MdDelete } from "react-icons/md";
 import { split } from "lodash";
 import { EditCreateDinosaurs } from "../../components/UserPage/EditCreateDinosaurs/EditCreateDinosaurs";
 import { EditCreateArticles } from "../../components/UserPage/EditCreateArticles/EditCreateArticles";
+import { FaClipboardUser } from "react-icons/fa6";
+import { EditUsers } from "../../components/EditUsers/EditUsers";
 
 export function UserPage() {
   const navigate = useNavigate();
@@ -71,6 +73,14 @@ export function UserPage() {
     },
   ];
 
+  const adminCatagories: any = [
+    {
+      value: "editUsers",
+      icon: <FaClipboardUser size={"22px"} />,
+      tooltip: "Favorite Articles",
+    },
+  ];
+
   console.log("user", user);
 
   useEffect(() => {
@@ -80,6 +90,9 @@ export function UserPage() {
       let catagories = [...userCatagories];
       if (user.permissions && user.permissions > 1) {
         catagories.push(...memberCatagories);
+      }
+      if (user.permissions && user.permissions >= 4) {
+        catagories.push(...adminCatagories);
       }
       setCatagories(catagories);
     }
@@ -93,6 +106,8 @@ export function UserPage() {
         return <EditCreateDinosaurs />;
       case "editArticles":
         return <EditCreateArticles />;
+      case "editUsers":
+        return <EditUsers />;
       default:
         return <UserProfile />;
     }
