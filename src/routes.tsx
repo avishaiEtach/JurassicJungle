@@ -7,6 +7,8 @@ import { Articles } from "./pages/Articles/Articles";
 import { ArticlePage } from "./pages/ArticlePage/ArticlePage";
 import { ContactUs } from "./pages/ContactUs/ContactUs";
 import { UserPage } from "./pages/UserPage/UserPage";
+import { Dashboard } from "./pages/Dashboard/Dashboard";
+import { Users } from "./pages/Users/Users";
 
 export const routesPath = {
   home: "/",
@@ -16,7 +18,55 @@ export const routesPath = {
   contact: "/contact-us",
   articlePage: "/articles/article-page/:id",
   account: "/account/:id",
+  dashboard: "/admin/dashboard",
+  inbox: "/admin/inbox",
+  users: "/admin/users",
+  adminEditDinosaurs: "/admin/edit-dinosaurs",
+  adminEditArticles: "/admin/edit-articles",
 };
+
+export const adminRoutes: Routes[] = [
+  {
+    path: routesPath.dashboard,
+    component: Dashboard,
+    label: "Dashboard",
+    showInNavBar: true,
+    icon: <FaHome />,
+    permissions: 4,
+  },
+  {
+    path: routesPath.inbox,
+    component: () => <div>inbox</div>,
+    label: "Inbox",
+    showInNavBar: true,
+    icon: <HiUserGroup />,
+    permissions: 4,
+  },
+  {
+    path: routesPath.users,
+    component: Users,
+    label: "Users",
+    showInNavBar: true,
+    icon: <HiUserGroup />,
+    permissions: 4,
+  },
+  {
+    path: routesPath.adminEditDinosaurs,
+    component: () => <div>adminEditDinosaurs</div>,
+    label: "Edit Dinosaurs",
+    showInNavBar: true,
+    icon: <HiUserGroup />,
+    permissions: 4,
+  },
+  {
+    path: routesPath.adminEditArticles,
+    component: () => <div>adminEditArticles</div>,
+    label: "Edit Articles",
+    showInNavBar: true,
+    icon: <HiUserGroup />,
+    permissions: 4,
+  },
+];
 
 export const routes: Routes[] = [
   {

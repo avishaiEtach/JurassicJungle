@@ -44,12 +44,12 @@ export const useAppHeader = ({ handleOpen, user, loader }: any) => {
   };
 
   const logout = async () => {
-    const pageUrl = window.location.href.includes("account") 
-    dispatch(setUser(undefined))
-    await userServices.logout()
-      if(pageUrl){
-        navigate(routesPath.home)
-      }
+    const pageUrl = window.location.href.includes("account");
+    dispatch(setUser(undefined));
+    await userServices.logout();
+    if (pageUrl) {
+      navigate(routesPath.home);
+    }
   };
 
   const navigate = useNavigate();
@@ -110,6 +110,17 @@ export const useAppHeader = ({ handleOpen, user, loader }: any) => {
           }}
         >
           <Avatar /> My account
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            navigate("/admin/dashboard");
+            handleClose();
+          }}
+        >
+          <Avatar sx={{ backgroundColor: "transparent" }}>
+            <Settings sx={{ color: "#bdbdbd" }} />
+          </Avatar>
+          Admin Panel
         </MenuItem>
         <Divider />
         <MenuItem

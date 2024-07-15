@@ -10,8 +10,10 @@
 
 .active {
   color: $warm_sand;
+  transition: 0.4s;
   svg {
     fill: $warm_sand;
+    transition: 0.4s;
   }
 }
 
