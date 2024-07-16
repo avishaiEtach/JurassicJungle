@@ -40,3 +40,10 @@
 .Toolbar {
   justify-content: space-between;
 }
+
+.super-app-theme--header,
+.MuiDataGrid-columnHeaderTitleContainer,
+.MuiDataGrid-filler,
+.MuiDataGrid-columnHeader {
+  background-color: #f9fafc !important;
+}

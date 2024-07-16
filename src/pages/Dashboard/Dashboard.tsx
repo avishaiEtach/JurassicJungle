@@ -100,7 +100,7 @@ export const Dashboard = () => {
 
   return (
     <div className="flex column g20">
-      <div className="flex  column g20 ">
+      <div className="flex  g20 ">
         <Paper elevation={3} style={{ width: "100%", height: "300px" }}>
           <AgCharts
             style={{ width: "100%", height: "100%" }}
