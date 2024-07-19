@@ -23,16 +23,10 @@ import { Button } from "@mui/material";
 const drawerWidth = 240;
 
 interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * Remove this when copying and pasting into your project.
-   */
-  window?: () => Window;
   children: React.ReactElement;
 }
 
 export function AdminHeader(props: Props) {
-  const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
 
@@ -53,7 +47,7 @@ export function AdminHeader(props: Props) {
     }
   };
 
-  const [active, setActive] = React.useState("");
+  const [active, setActive] = React.useState(adminRoutes[0].label);
 
   const drawer = (
     <div>

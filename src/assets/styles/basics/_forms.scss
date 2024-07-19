@@ -1,9 +1,15 @@
 .text__filed {
-  .MuiInputBase-root.MuiOutlinedInput-root:has(input),
-  .MuiInputBase-root.MuiOutlinedInput-root:has(textarea) {
+  .MuiInputBase-root:has(input),
+  .MuiInputBase-root:has(textarea) {
     border-color: $black !important;
+    &::after {
+      border-color: $black !important;
+    }
     &.Mui-focused {
       fieldset {
+        border-color: $black !important;
+      }
+      &::after {
         border-color: $black !important;
       }
     }
@@ -55,7 +61,29 @@
     padding: 6px 16px !important;
     margin-top: 0px !important;
   }
+  &.text {
+    border-radius: 5px !important;
+    padding: 6px 16px !important;
+    margin-top: 0px !important;
+    border: 0px !important;
+  }
+  &.error {
+    background-color: #fecaca !important;
+    color: #a83535 !important;
+    border: none !important;
+    &:hover {
+      background-color: #f6a4a4 !important;
+    }
+  }
   &.MuiLoadingButton-loading {
     color: transparent !important;
+  }
+}
+
+.check_box {
+  &.MuiCheckbox-root {
+    &.Mui-checked {
+      color: rgba($black, 0.3) !important;
+    }
   }
 }

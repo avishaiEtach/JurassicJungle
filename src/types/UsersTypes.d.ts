@@ -18,16 +18,61 @@ declare global {
       userId: string;
       _id: string;
     };
-    employeeId?: {
-      image: string;
-      jobTitleName: string;
-      salary: number;
-      address: string;
-      department: string;
-      phone: string;
-      gender: "Male" | "Female" | "Other";
-      age: number;
-      userId: string;
+    employeeId?: Employee;
+  }
+
+  interface Employee {
+    image: string;
+    jobTitleName: string;
+    salary: number;
+    address: string;
+    department: string;
+    phone: string;
+    gender: "Male" | "Female" | "Other";
+    age: number;
+    userId: string;
+  }
+
+  interface EditEmployee {
+    image: {
+      value: string | number;
+      type: "text" | "select" | "date" | "object" | "number";
+      items: (string | number)[];
+    };
+    jobTitleName: {
+      value: string | number;
+      type: "text" | "select" | "date" | "object" | "number";
+      items: (string | number)[];
+    };
+    salary: {
+      value: string | number;
+      type: "text" | "select" | "date" | "object" | "number";
+      items: (string | number)[];
+    };
+    address: {
+      value: string | number;
+      type: "text" | "select" | "date" | "object" | "number";
+      items: (string | number)[];
+    };
+    department: {
+      value: string | number;
+      type: "text" | "select" | "date" | "object" | "number";
+      items: (string | number)[];
+    };
+    phone: {
+      value: string | number;
+      type: "text" | "select" | "date" | "object" | "number";
+      items: (string | number)[];
+    };
+    gender: {
+      value: string | number;
+      type: "text" | "select" | "date" | "object" | "number";
+      items: (string | number)[];
+    };
+    age: {
+      value: string | number;
+      type: "text" | "select" | "date" | "object" | "number";
+      items: (string | number)[];
     };
   }
 

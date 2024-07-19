@@ -44,6 +44,17 @@
 .super-app-theme--header,
 .MuiDataGrid-columnHeaderTitleContainer,
 .MuiDataGrid-filler,
-.MuiDataGrid-columnHeader {
+.MuiDataGrid-columnHeader,
+.MuiDataGrid-scrollbarFiller {
   background-color: #f9fafc !important;
+}
+
+.users__table__button {
+  &:not(:disabled) {
+    color: rgb(125, 125, 125) !important;
+  }
+}
+
+.dialog__mui__paper {
+  padding: 10px;
 }

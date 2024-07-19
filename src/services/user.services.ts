@@ -9,6 +9,8 @@ export const userServices = {
   signup,
   updateUser,
   updateMember,
+  deleteUser,
+  deleteUsers,
 };
 
 async function login(loginForm: { email: string; password: string }) {
@@ -38,4 +40,12 @@ async function updateUser(id = "", fieldsToChange: any) {
 
 async function updateMember(id = "", fieldsToChange: any) {
   return await http.put(`/updateMember/${id}`, { fieldsToChange });
+}
+
+async function deleteUser(id = "") {
+  return await http.delete(`/deleteUser/${id}`);
+}
+
+async function deleteUsers(idsToDelete: string[]) {
+  return await http.delete(`/deleteUsers`, { idsToDelete });
 }
