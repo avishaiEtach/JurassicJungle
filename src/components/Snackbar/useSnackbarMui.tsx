@@ -26,7 +26,7 @@ export const useSnackbarMui = () => {
     children: ReactElement;
   }> = ({ children }) => {
     return (
-      <Fade in={open}>
+      <Fade in={open} timeout={1000}>
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={open}

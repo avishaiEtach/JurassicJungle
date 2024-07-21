@@ -31,6 +31,7 @@ declare global {
     gender: "Male" | "Female" | "Other";
     age: number;
     userId: string;
+    _id: string;
   }
 
   interface EditEmployee {

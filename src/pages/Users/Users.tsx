@@ -16,6 +16,7 @@ import {
   DialogTitle,
   Divider,
   IconButton,
+  InputAdornment,
   MenuItem,
   Paper,
   Table,
@@ -51,31 +52,34 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
+import { TbCurrencyShekel } from "react-icons/tb";
+import { useSnackbarMui } from "../../components/Snackbar/useSnackbarMui";
+import { AlertMui } from "../../components/Alert/AlertMui";
 
 interface EditUser {
   firstname: {
     value: string;
-    type: "text" | "select" | "date" | "object";
+    type: "text" | "select" | "date" | "object" | "number";
     items: { text: string; value: number }[];
   };
   lastname: {
     value: string;
-    type: "text" | "select" | "date" | "object";
+    type: "text" | "select" | "date" | "object" | "number";
     items: (string | number)[];
   };
   email: {
     value: string;
-    type: "text" | "select" | "date" | "object";
+    type: "text" | "select" | "date" | "object" | "number";
     items: (string | number)[];
   };
   dob: {
     value: Dayjs;
-    type: "text" | "select" | "date" | "object";
+    type: "text" | "select" | "date" | "object" | "number";
     items: (string | number)[];
   };
   permissions: {
-    value: string | number;
-    type: "text" | "select" | "date" | "object";
+    value: 1 | 2 | 3 | 4;
+    type: "text" | "select" | "date" | "object" | "number";
     items: (string | number)[];
   };
   member: {
@@ -87,7 +91,7 @@ interface EditUser {
       };
     };
     active: boolean;
-    type: "text" | "select" | "date" | "object";
+    type: "text" | "select" | "date" | "object" | "number";
     items: (string | number)[];
   };
   employee: {
@@ -134,7 +138,7 @@ interface EditUser {
       };
     };
     active: boolean;
-    type: "text" | "select" | "date" | "object";
+    type: "text" | "select" | "date" | "object" | "number";
     items: (string | number)[];
   };
 }
@@ -142,6 +146,7 @@ interface EditUser {
 export const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUsersId, setSelectedUsersId] = useState<string[]>([]);
+  const [chooseUser, setChooseUser] = useState<User | undefined>();
   const [editUser, setEditUser] = useState<EditUser>({
     firstname: {
       value: "",
@@ -228,9 +233,97 @@ export const Users = () => {
       items: [],
     },
   });
+  const clearEditUser: EditUser = {
+    firstname: {
+      value: "",
+      type: "text",
+      items: [],
+    },
+    lastname: {
+      value: "",
+      type: "text",
+      items: [],
+    },
+    email: {
+      value: "",
+      type: "text",
+      items: [],
+    },
+    dob: {
+      value: dayjs(new Date()),
+      type: "date",
+      items: [],
+    },
+    permissions: {
+      value: 1,
+      type: "select",
+      items: [1, 2, 3, 4],
+    },
+    member: {
+      value: {
+        academicTitle: {
+          value: "",
+          type: "select",
+          items: ["Prof", "Dr", "none"],
+        },
+      },
+      active: true,
+      type: "object",
+      items: [],
+    },
+    employee: {
+      value: {
+        image: {
+          value: "",
+          type: "text",
+          items: [],
+        },
+        jobTitleName: {
+          value: "",
+          type: "text",
+          items: [],
+        },
+        salary: {
+          value: "",
+          type: "number",
+          items: [],
+        },
+        address: {
+          value: "",
+          type: "text",
+          items: [],
+        },
+        department: {
+          value: "",
+          type: "text",
+          items: [],
+        },
+        phone: {
+          value: "",
+          type: "text",
+          items: [],
+        },
+        gender: {
+          value: "",
+          type: "select",
+          items: ["Male", "Woman", "Other"],
+        },
+        age: {
+          value: "",
+          type: "number",
+          items: [],
+        },
+      },
+      active: true,
+      type: "object",
+      items: [],
+    },
+  };
 
   const { MUIModal, handleOpen } = useModal();
   const { handleCloseDialog, handleOpenDialog, MUIDialog } = useDialog();
+  const { handleOpenSnackbar, handleCloseSnackbar, SnackbarMUI } =
+    useSnackbarMui();
 
   useEffect(() => {
     getUsers();
@@ -249,14 +342,18 @@ export const Users = () => {
     setUsers([...usersToShow]);
   };
 
-  const chooseUser = (user: User) => {
-    let userToEdit = { ...editUser };
+  const onChooseUser = (user: User) => {
+    setChooseUser(user);
+    let userToEdit = { ...clearEditUser };
     for (const key in userToEdit) {
       if (isUserProperty(key) && key !== "member" && key !== "employee") {
         if (key === "permissions") {
-          userToEdit[key].value = user[key] as number;
+          userToEdit[key].value = user[key] as 1 | 2 | 3 | 4;
         } else {
           userToEdit[key].value = user[key];
+        }
+        if (key === "dob") {
+          userToEdit[key].value = dayjs(user[key]);
         }
       } else if (key === "member" && user.memberId) {
         userToEdit[key].value = {
@@ -359,7 +456,7 @@ export const Users = () => {
           icon={<EditIcon />}
           actionFunction={() => {
             handleOpen();
-            chooseUser(params.row.user);
+            onChooseUser(params.row.user);
           }}
           closeMenuOnClick={false}
         />,
@@ -395,7 +492,6 @@ export const Users = () => {
   };
 
   const data = useMemo(() => {
-    console.log("users", users);
     return users.map((user, index) => {
       return {
         id: user._id,
@@ -435,7 +531,7 @@ export const Users = () => {
     ev: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     key?: "employee" | "member"
   ) => {
-    const { name, value } = ev.target;
+    const { name, value, type } = ev.target;
     if (isUserProperty(name) && name !== "employee" && name !== "member") {
       setEditUser((prev) => {
         return {
@@ -456,7 +552,7 @@ export const Users = () => {
               ...prev.employee.value,
               [name]: {
                 ...prev.employee.value[name],
-                value: value,
+                value: type === "number" ? +value : value,
               },
             },
           },
@@ -492,6 +588,55 @@ export const Users = () => {
         };
       });
     }
+  };
+
+  const onSendUser = async () => {
+    let ids: {
+      memberId: null | string;
+      employeeId: null | string;
+    } = {
+      memberId: null,
+      employeeId: null,
+    };
+
+    let member: Dictionary = {};
+    let employee: Dictionary = {};
+
+    let user: Dictionary = {
+      dob: editUser.dob.value.toISOString(),
+      email: editUser.email.value,
+      firstname: editUser.firstname.value,
+      lastname: editUser.lastname.value,
+      permissions: editUser.permissions.value,
+    };
+
+    if (editUser.permissions.value >= 2 && chooseUser) {
+      ids.memberId = chooseUser.memberId ? chooseUser.memberId._id : null;
+      member.academicTitle = editUser.member.value.academicTitle.value;
+    }
+
+    if (editUser.permissions.value >= 3 && chooseUser) {
+      ids.employeeId = chooseUser.employeeId ? chooseUser.employeeId._id : null;
+      employee = {
+        image: editUser.employee.value.image.value,
+        jobTitleName: editUser.employee.value.jobTitleName.value,
+        salary: editUser.employee.value.salary.value,
+        address: editUser.employee.value.address.value,
+        department: editUser.employee.value.department.value,
+        phone: editUser.employee.value.phone.value,
+        gender: editUser.employee.value.gender.value,
+        age: editUser.employee.value.age.value,
+      };
+    }
+
+    const res = { ids, user, member, employee };
+    if (chooseUser) {
+      await userServices.updateUserByAdmin(res, chooseUser?._id ?? null);
+    } else {
+      await userServices.createUserByAdmin(res);
+    }
+    handleOpenSnackbar();
+    getUsers();
   };
 
   const EditUserModal = useMemo(() => {
@@ -533,7 +678,9 @@ export const Users = () => {
         } else if (type === "select") {
           inputs.push(
             <TextField
-              onChange={(ev) => onChange(ev)}
+              onChange={(ev) => {
+                onChange(ev);
+              }}
               select
               label={formatString(
                 key === "firstname"
@@ -565,14 +712,26 @@ export const Users = () => {
     Object.keys(editUser.employee.value).forEach((key) => {
       if (isEmployeeProperty(key)) {
         const { value, type } = editUser.employee.value[key];
-        if (type === "text") {
+        if (type === "text" || type === "number") {
           employeeInputs.push(
             <TextField
               onChange={(ev) => onChange(ev, "employee")}
               label={formatString(key)}
               className="text__filed"
               name={key}
-              value={value}
+              value={type === "number" ? +value : value}
+              type={type}
+              InputProps={
+                key === "salary"
+                  ? {
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <TbCurrencyShekel />
+                        </InputAdornment>
+                      ),
+                    }
+                  : undefined
+              }
             />
           );
         } else if (type === "select") {
@@ -628,11 +787,12 @@ export const Users = () => {
             </div>
           </div>
         )}
+        <Button className="button" onClick={onSendUser}>
+          Save
+        </Button>
       </div>
     );
   }, [editUser]);
-
-  console.log("editUser", editUser);
 
   return (
     <div className="flex g20 column">
@@ -693,7 +853,10 @@ export const Users = () => {
                     <div className="flex g10">
                       <Button
                         startIcon={<AddIcon />}
-                        onClick={handleOpen}
+                        onClick={() => {
+                          setEditUser(clearEditUser);
+                          handleOpen();
+                        }}
                         className="button text users__table__button"
                       >
                         add User
@@ -781,6 +944,15 @@ export const Users = () => {
               </Button>
             </DialogActions>
           </>
+        ),
+      })}
+      {SnackbarMUI({
+        children: (
+          <AlertMui
+            alertText={"the user has been saved !"}
+            severity="success"
+            variant="filled"
+          />
         ),
       })}
     </div>

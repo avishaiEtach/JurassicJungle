@@ -11,6 +11,8 @@ export const userServices = {
   updateMember,
   deleteUser,
   deleteUsers,
+  updateUserByAdmin,
+  createUserByAdmin,
 };
 
 async function login(loginForm: { email: string; password: string }) {
@@ -48,4 +50,20 @@ async function deleteUser(id = "") {
 
 async function deleteUsers(idsToDelete: string[]) {
   return await http.delete(`/deleteUsers`, { idsToDelete });
+}
+
+async function updateUserByAdmin(
+  { ids, user, member, employee }: Dictionary,
+  userId: string | null
+) {
+  return await http.put(`/updateUserByAdmin/${userId}`, {
+    ids,
+    user,
+    member,
+    employee,
+  });
+}
+
+async function createUserByAdmin({ ids, user, member, employee }: Dictionary) {
+  return await http.post(`/createUserByAdmin`, { ids, user, member, employee });
 }

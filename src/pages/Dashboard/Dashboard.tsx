@@ -1,18 +1,13 @@
 import { Paper } from "@mui/material";
 import { AgCharts, AgChartProps } from "ag-charts-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { http } from "../../http";
 
 export const Dashboard = () => {
   const [options, setOptions] = useState({
-    data: [
-      { asset: "Stocks", amount: 60000 },
-      { asset: "Bonds", amount: 40000 },
-      { asset: "Cash", amount: 7000 },
-      { asset: "Real Estate", amount: 5000 },
-      { asset: "Commodities", amount: 3000 },
-    ],
+    data: [],
     title: {
-      text: "Portfolio Composition",
+      text: "User proportion by role",
     },
     series: [
       {
@@ -24,79 +19,106 @@ export const Dashboard = () => {
   });
 
   const [optionsBar, setOptionsBar] = useState({
-    title: {
-      text: "Apple's Revenue by Product Category",
-    },
-    subtitle: {
-      text: "In Billion U.S. Dollars",
-    },
     data: [
-      {
-        quarter: "Q1'18",
-        iphone: 140,
-        mac: 16,
-        ipad: 14,
-        wearables: 12,
-        services: 20,
-      },
-      {
-        quarter: "Q2'18",
-        iphone: 124,
-        mac: 20,
-        ipad: 14,
-        wearables: 12,
-        services: 30,
-      },
-      {
-        quarter: "Q3'18",
-        iphone: 112,
-        mac: 20,
-        ipad: 18,
-        wearables: 14,
-        services: 36,
-      },
-      {
-        quarter: "Q4'18",
-        iphone: 118,
-        mac: 24,
-        ipad: 14,
-        wearables: 14,
-        services: 36,
-      },
+      { asset: "dinosaurs", amount: 120 },
+      { asset: "articles", amount: 50 },
     ],
+    title: {
+      text: "Proportion of Dinosaurs vs. Articles",
+    },
     series: [
       {
-        type: "bar",
-        xKey: "quarter",
-        yKey: "iphone",
-        yName: "iPhone",
-      },
-      {
-        type: "bar",
-        xKey: "quarter",
-        yKey: "mac",
-        yName: "Mac",
-      },
-      {
-        type: "bar",
-        xKey: "quarter",
-        yKey: "ipad",
-        yName: "iPad",
-      },
-      {
-        type: "bar",
-        xKey: "quarter",
-        yKey: "wearables",
-        yName: "Wearables",
-      },
-      {
-        type: "bar",
-        xKey: "quarter",
-        yKey: "services",
-        yName: "Services",
+        type: "pie",
+        angleKey: "amount",
+        legendItemKey: "asset",
       },
     ],
   });
+
+  const [optionsLine, setOptionsLine] = useState({
+    title: {
+      text: "Income and Expenses per Month",
+    },
+    data: [
+      { month: "January", income: 12000, expenses: 7000 },
+      { month: "February", income: 11500, expenses: 10000 },
+      { month: "March", income: 13000, expenses: 9000 },
+      { month: "April", income: 12500, expenses: 11500 },
+      { month: "May", income: 13500, expenses: 7100 },
+      { month: "June", income: 12800, expenses: 10000 },
+      { month: "July", income: 13200, expenses: 11000 },
+      { month: "August", income: 14000, expenses: 12000 },
+      { month: "September", income: 12500, expenses: 13200 },
+      { month: "October", income: 12750, expenses: 9000 },
+      { month: "November", income: 12900, expenses: 14000 },
+      { month: "December", income: 13500, expenses: 10000 },
+    ],
+
+    series: [
+      {
+        type: "line",
+        xKey: "month",
+        xName: "Month",
+        yKey: "income",
+        yName: "Income",
+        interpolation: { type: "smooth" },
+        stroke: "#459D55",
+        marker: {
+          fill: "#459D55",
+        },
+        tooltip: {
+          renderer: (params: any) => {
+            return { backgroundColor: "#459D55" };
+          },
+        },
+      },
+      {
+        type: "line",
+        xKey: "month",
+        xName: "Month",
+        yKey: "expenses",
+        yName: "Expenses",
+        interpolation: { type: "smooth" },
+        stroke: "#EF5452",
+        marker: {
+          fill: "#EF5452",
+        },
+        tooltip: {
+          renderer: (params: any) => {
+            return { backgroundColor: "#EF5452" };
+          },
+        },
+      },
+    ],
+  });
+
+  useEffect(() => {
+    getDashboard();
+  }, []);
+
+  const getDashboard = async () => {
+    const res1 = await http.get("/getUsersByRole");
+    setOptions((prev) => {
+      return {
+        ...prev,
+        data: res1,
+      };
+    });
+    const res2 = await http.get("/getDinosaursVsArticles");
+    setOptionsBar((prev) => {
+      return {
+        ...prev,
+        data: res2,
+      };
+    });
+    const res3 = await http.get("/getIncomeExpenses");
+    setOptionsLine((prev) => {
+      return {
+        ...prev,
+        data: res3,
+      };
+    });
+  };
 
   return (
     <div className="flex column g20">
@@ -116,14 +138,14 @@ export const Dashboard = () => {
         >
           <AgCharts
             style={{ width: "100%", height: "100%" }}
-            options={options as any}
+            options={optionsBar as any}
           />
         </Paper>
       </div>
       <Paper elevation={3} style={{ height: "550px" }}>
         <AgCharts
           style={{ width: "100%", height: "100%" }}
-          options={optionsBar as any}
+          options={optionsLine as any}
         />
       </Paper>
     </div>
