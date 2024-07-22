@@ -53,7 +53,7 @@ async function deleteUsers(idsToDelete: string[]) {
 }
 
 async function updateUserByAdmin(
-  { ids, user, member, employee }: Dictionary,
+  { ids, user, member, employee }: AdminUser,
   userId: string | null
 ) {
   return await http.put(`/updateUserByAdmin/${userId}`, {
@@ -64,6 +64,6 @@ async function updateUserByAdmin(
   });
 }
 
-async function createUserByAdmin({ ids, user, member, employee }: Dictionary) {
+async function createUserByAdmin({ ids, user, member, employee }: AdminUser) {
   return await http.post(`/createUserByAdmin`, { ids, user, member, employee });
 }

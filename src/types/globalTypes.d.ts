@@ -77,4 +77,21 @@ declare global {
   interface SingupProps {
     handleClose: () => void;
   }
+
+  //-------------------------------------------------------------------------------------------------------------
+
+  interface UsersByRole {
+    asset: string;
+    amount: number;
+  }
+  interface DinosaursVsArticles {
+    asset: string;
+    amount: number;
+  }
+
+  interface IncomeExpenses {
+    month: string;
+    income: number;
+    expenses: number;
+  }
 }

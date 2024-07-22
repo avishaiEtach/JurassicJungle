@@ -1,0 +1,90 @@
+@import "../../assets/styles/setup/setup";
+
+.MuiChip-root.permission__chip {
+  border-radius: 5px;
+  width: 90px;
+}
+
+.MuiChip-root.admin {
+  background-color: $baby_pink;
+  color: $burgundy;
+}
+
+.MuiChip-root.employee {
+  background-color: $baby_blue;
+  color: $ultramarine;
+}
+
+.MuiChip-root.member {
+  background-color: $soft_mint;
+  color: $evergreen;
+}
+
+.MuiTableRow-root:last-child td {
+  border-bottom: 1px solid $mist_gray !important;
+}
+.MuiToolbar-root {
+  p {
+    margin: 0;
+  }
+}
+
+.Toolbar {
+  justify-content: space-between;
+}
+
+.super-app-theme--header,
+.MuiDataGrid-columnHeaderTitleContainer,
+.MuiDataGrid-filler,
+.MuiDataGrid-columnHeader,
+.MuiDataGrid-scrollbarFiller {
+  background-color: $frost !important;
+}
+
+.users__table__button {
+  &:not(:disabled) {
+    color: $ash_gray !important;
+  }
+}
+
+.dialog__mui__paper {
+  padding: 10px;
+}
+
+.users__main__header {
+  padding-block: 20px;
+}
+
+.users__table__container {
+  height: 400px;
+  width: 100%;
+  max-width: 700px;
+  @media screen and (max-width: $normal-breakpoint) {
+    max-width: 350px;
+  }
+}
+
+.users__table__buttons__container {
+  padding-block: 8px;
+  display: flex;
+  gap: 10px;
+  color: black;
+  width: 100%;
+  background-color: $frost;
+  justify-content: space-between;
+  padding-inline: 8px;
+  @media screen and (max-width: $normal-breakpoint) {
+    flex-direction: column;
+    .users__table__filter__button__container {
+      order: -1;
+    }
+  }
+}
+
+.users__table__filter__button {
+  color: $ash_gray !important;
+}
+
+.users__dialog__button {
+  width: 120px;
+}
