@@ -9,6 +9,8 @@ import { ContactUs } from "./pages/ContactUs/ContactUs";
 import { UserPage } from "./pages/UserPage/UserPage";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
 import { Users } from "./pages/Users/Users";
+import { Inbox } from "./pages/Inbox/Inbox";
+import { MailPage } from "./pages/MailPage/MailPage";
 
 export const routesPath = {
   home: "/",
@@ -20,6 +22,7 @@ export const routesPath = {
   account: "/account/:id",
   dashboard: "/admin/dashboard",
   inbox: "/admin/inbox",
+  mailPage: "/admin/inbox/mail-page/:id",
   users: "/admin/users",
   adminEditDinosaurs: "/admin/edit-dinosaurs",
   adminEditArticles: "/admin/edit-articles",
@@ -36,9 +39,17 @@ export const adminRoutes: Routes[] = [
   },
   {
     path: routesPath.inbox,
-    component: () => <div>inbox</div>,
+    component: Inbox,
     label: "Inbox",
     showInNavBar: true,
+    icon: <HiUserGroup />,
+    permissions: 4,
+  },
+  {
+    path: routesPath.mailPage,
+    component: MailPage,
+    label: "Mail Page",
+    showInNavBar: false,
     icon: <HiUserGroup />,
     permissions: 4,
   },

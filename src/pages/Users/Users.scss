@@ -40,6 +40,13 @@
 .MuiDataGrid-scrollbarFiller {
   background-color: $frost !important;
 }
+.MuiDataGrid-cell {
+  background-color: $white;
+}
+
+.MuiDataGrid-footerContainer {
+  background-color: $white;
+}
 
 .users__table__button {
   &:not(:disabled) {

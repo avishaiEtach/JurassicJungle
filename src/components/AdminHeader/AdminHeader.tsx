@@ -16,9 +16,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import logo from "../../assets/images/logo4.png";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { adminRoutes, routes, routesPath } from "../../routes";
 import { Button } from "@mui/material";
+import { formatString } from "../../assets/util";
 
 const drawerWidth = 240;
 
@@ -47,7 +48,15 @@ export function AdminHeader(props: Props) {
     }
   };
 
-  const [active, setActive] = React.useState(adminRoutes[0].label);
+  const getValueAfterAdmin = (path: string): string => {
+    const prefix = "/admin/";
+    if (path.startsWith(prefix)) {
+      return path.slice(prefix.length);
+    }
+    return "";
+  };
+
+  const { pathname } = useLocation();
 
   const drawer = (
     <div>
@@ -58,26 +67,30 @@ export function AdminHeader(props: Props) {
       </Toolbar>
       <Divider />
       <List>
-        {adminRoutes.map((route) => (
-          <NavLink to={route.path}>
-            <ListItem disablePadding>
-              <ListItemButton
-                onClick={() => {
-                  setActive(route.label);
-                }}
-              >
-                <ListItemIcon>{route.icon}</ListItemIcon>
-                <ListItemText primary={route.label} />
-              </ListItemButton>
-            </ListItem>
-          </NavLink>
-        ))}
+        {adminRoutes
+          .filter((route) => route.showInNavBar)
+          .map((route) => (
+            <NavLink to={route.path}>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>{route.icon}</ListItemIcon>
+                  <ListItemText primary={route.label} />
+                </ListItemButton>
+              </ListItem>
+            </NavLink>
+          ))}
       </List>
     </div>
   );
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box
+      className="AAAA"
+      sx={{
+        display: "flex",
+        backgroundColor: "#F6F8FC",
+      }}
+    >
       <AppBar
         position="fixed"
         elevation={0}
@@ -104,7 +117,7 @@ export function AdminHeader(props: Props) {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              {active}
+              {formatString(getValueAfterAdmin(pathname))}
             </Typography>
           </div>
           <Button

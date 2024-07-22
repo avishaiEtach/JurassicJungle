@@ -1,0 +1,122 @@
+@import "../../assets/styles/setup/setup";
+
+.inbox__main__container {
+  //   outline: 1px solid rgba(240, 240, 240, 1);
+  padding-block: 30px;
+  border-radius: 5px;
+  max-width: 900px;
+  background-color: $white;
+  //   padding: 20px;
+}
+
+// .inbox__massage__container {
+//   padding: 10px 20px;
+//   display: flex;
+//   transition: 0.4s;
+//   cursor: pointer;
+//   background-color: $white;
+//   border-bottom: 1px solid rgba(100, 121, 143, 0.12);
+//   &:hover {
+//     filter: brightness(0.8);
+//   }
+//   &.read {
+//     background-color: #f2f6fc;
+//   }
+//   &:first-of-type {
+//     border-top: 1px solid rgba(100, 121, 143, 0.12);
+//   }
+// }
+
+// .inbox__massage__fromSend {
+//   text-transform: capitalize;
+// }
+
+// .inbox__massage__title {
+//   width: 200px;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+// }
+
+// .text__un__read {
+//   font-weight: 700;
+// }
+
+// .spacer {
+//   width: 70px;
+//   &.small {
+//     width: 40px;
+//   }
+// }
+
+// .inbox__massage__line {
+//   margin-inline: 8px;
+//   display: flex;
+//   align-items: center;
+//   justify-items: center;
+// }
+
+// .inbox__massage__massage {
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+//   width: 550px;
+//   display: inline-block;
+//   &.un__read {
+//     width: 543px;
+//   }
+// }
+
+[aria-label="0"] {
+  border-top: 1px solid rgba(100, 121, 143, 0.12);
+}
+
+.inbox__row__container {
+  display: flex;
+  overflow: hidden;
+  border: 1px solid rgba(100, 121, 143, 0.12);
+  border-top: none;
+  padding: 15px 20px;
+  transition: 0.4s;
+  background-color: $white;
+  cursor: pointer;
+  &:hover {
+    filter: brightness(0.8);
+  }
+  &.unread {
+    background-color: #f2f6fc;
+    .inbox__row__send,
+    .inbox__row__subject,
+    .inbox__row__time {
+      font-weight: 700;
+    }
+  }
+}
+
+.inbox__row__send {
+  margin-right: 100px;
+}
+
+.inbox__row__subject {
+  white-space: nowrap;
+}
+
+.inbox__row__spacer {
+  margin-inline: 5px;
+}
+
+.inbox__row__description {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: #5f6368;
+}
+
+.inbox__row__time {
+  margin-left: 30px;
+  font-size: 12px;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

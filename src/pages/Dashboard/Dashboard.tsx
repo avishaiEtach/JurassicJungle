@@ -93,7 +93,7 @@ export const Dashboard = () => {
 
   return (
     <div className="flex column g20">
-      <div className="flex  g20 ">
+      <div className="flex  g20 dashboard__container">
         <Paper elevation={3} className="dashboard__small__chart">
           <AgCharts
             className="dashboard__chart"

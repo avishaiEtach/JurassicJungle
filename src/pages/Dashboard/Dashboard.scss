@@ -12,5 +12,17 @@
 
 .dashboard__big__chart {
   width: 100%;
-  height: 550px;
+  height: 450px;
+}
+
+.dashboard__container {
+  @media screen and (max-width: $normal-breakpoint) {
+    flex-direction: column;
+    & > * {
+      flex-basis: 100%;
+    }
+    .dashboard__chart {
+      height: auto;
+    }
+  }
 }
