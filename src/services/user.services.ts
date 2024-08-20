@@ -13,6 +13,8 @@ export const userServices = {
   deleteUsers,
   updateUserByAdmin,
   createUserByAdmin,
+  getAllEmployees,
+  createMail,
 };
 
 async function login(loginForm: { email: string; password: string }) {
@@ -66,4 +68,12 @@ async function updateUserByAdmin(
 
 async function createUserByAdmin({ ids, user, member, employee }: AdminUser) {
   return await http.post(`/createUserByAdmin`, { ids, user, member, employee });
+}
+
+async function getAllEmployees(): Promise<Employee[]> {
+  return await http.get(`/getAllEmployees`);
+}
+
+async function createMail(mail: NewMail): Promise<Mail[]> {
+  return await http.post(`/createMail`, { mail });
 }

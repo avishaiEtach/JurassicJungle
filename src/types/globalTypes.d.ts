@@ -104,4 +104,10 @@ declare global {
     fromSend: string;
     employeeId: string;
   }
+
+  interface NewMail {
+    subject: string;
+    description: string;
+    employeeId: string;
+  }
 }
