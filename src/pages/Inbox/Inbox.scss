@@ -1,71 +1,11 @@
 @import "../../assets/styles/setup/setup";
 
 .inbox__main__container {
-  //   outline: 1px solid rgba(240, 240, 240, 1);
   padding-block: 30px;
   border-radius: 5px;
   max-width: 900px;
   background-color: $white;
-  //   padding: 20px;
 }
-
-// .inbox__massage__container {
-//   padding: 10px 20px;
-//   display: flex;
-//   transition: 0.4s;
-//   cursor: pointer;
-//   background-color: $white;
-//   border-bottom: 1px solid rgba(100, 121, 143, 0.12);
-//   &:hover {
-//     filter: brightness(0.8);
-//   }
-//   &.read {
-//     background-color: #f2f6fc;
-//   }
-//   &:first-of-type {
-//     border-top: 1px solid rgba(100, 121, 143, 0.12);
-//   }
-// }
-
-// .inbox__massage__fromSend {
-//   text-transform: capitalize;
-// }
-
-// .inbox__massage__title {
-//   width: 200px;
-//   overflow: hidden;
-//   text-overflow: ellipsis;
-//   white-space: nowrap;
-// }
-
-// .text__un__read {
-//   font-weight: 700;
-// }
-
-// .spacer {
-//   width: 70px;
-//   &.small {
-//     width: 40px;
-//   }
-// }
-
-// .inbox__massage__line {
-//   margin-inline: 8px;
-//   display: flex;
-//   align-items: center;
-//   justify-items: center;
-// }
-
-// .inbox__massage__massage {
-//   overflow: hidden;
-//   text-overflow: ellipsis;
-//   white-space: nowrap;
-//   width: 550px;
-//   display: inline-block;
-//   &.un__read {
-//     width: 543px;
-//   }
-// }
 
 [aria-label="0"] {
   border-top: 1px solid rgba(100, 121, 143, 0.12);

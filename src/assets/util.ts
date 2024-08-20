@@ -1,3 +1,6 @@
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
 export function makeId(length = 6) {
   var txt = "";
   var possible =
@@ -303,3 +306,23 @@ export function formatString(input: string): string {
 // EU - Europe
 // AF - Africa
 // SA - Soth America
+
+dayjs.extend(relativeTime);
+
+export function formatGmailStyle(date: dayjs.Dayjs): string {
+  const now = dayjs();
+
+  if (date.isSame(now, "day")) {
+    // Today
+    return date.format("H:mm"); // 05:23
+  } else if (date.isSame(now, "week")) {
+    // This week but not today
+    return date.format("ddd"); // Mon, Tue, etc.
+  } else if (date.isSame(now, "year")) {
+    // This year
+    return date.format("MMM D"); // Jul 21
+  } else {
+    // Older than this year
+    return date.format("MMM D, YYYY"); // Jul 21, 2023
+  }
+}

@@ -48,14 +48,21 @@ export function AdminHeader(props: Props) {
     }
   };
 
-  const getValueAfterAdmin = (path: string): string => {
-    const prefix = "/admin/";
-    if (path.startsWith(prefix)) {
-      return path.slice(prefix.length);
+  const extractAdminValue = (path: string): string | null => {
+    const adminIndex = path.indexOf("/admin/");
+    if (adminIndex === -1) {
+      return null; // No /admin/ found
     }
-    return "";
-  };
 
+    const restOfPath = path.slice(adminIndex + "/admin/".length);
+    const nextSlashIndex = restOfPath.indexOf("/");
+
+    if (nextSlashIndex === -1) {
+      return restOfPath; // If no more slashes, return the remainder of the path
+    }
+
+    return restOfPath.slice(0, nextSlashIndex); // Extract value between /admin/ and next /
+  };
   const { pathname } = useLocation();
 
   const drawer = (
@@ -85,7 +92,6 @@ export function AdminHeader(props: Props) {
 
   return (
     <Box
-      className="AAAA"
       sx={{
         display: "flex",
         backgroundColor: "#F6F8FC",
@@ -117,7 +123,7 @@ export function AdminHeader(props: Props) {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              {formatString(getValueAfterAdmin(pathname))}
+              {formatString(extractAdminValue(pathname) as string)}
             </Typography>
           </div>
           <Button
@@ -173,6 +179,7 @@ export function AdminHeader(props: Props) {
           flexGrow: 1,
           p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
+          minHeight: "100dvh",
         }}
       >
         <Toolbar />

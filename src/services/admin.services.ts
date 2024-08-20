@@ -4,6 +4,7 @@ export const adminServices = {
   getUsersByRole,
   getDinosaursVsArticles,
   getIncomeExpenses,
+  updateMail,
 };
 
 async function getUsersByRole(): Promise<UsersByRole[]> {
@@ -21,4 +22,9 @@ async function getDinosaursVsArticles(): Promise<DinosaursVsArticles[]> {
 async function getIncomeExpenses(): Promise<IncomeExpenses[]> {
   const incomeExpenses: IncomeExpenses[] = await http.get("/getIncomeExpenses");
   return incomeExpenses;
+}
+
+async function updateMail(id = "", fieldsToChange: any): Promise<User> {
+  const user: User = await http.post(`/updateMail/${id}`, { fieldsToChange });
+  return user;
 }

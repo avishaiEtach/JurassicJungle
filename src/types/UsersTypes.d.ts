@@ -32,6 +32,7 @@ declare global {
     age: number;
     userId: string;
     _id: string;
+    mails: Mail[];
   }
 
   interface EditEmployee {

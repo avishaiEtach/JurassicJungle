@@ -63,7 +63,9 @@ export const adminRoutes: Routes[] = [
   },
   {
     path: routesPath.adminEditDinosaurs,
-    component: () => <div>adminEditDinosaurs</div>,
+    component: () => (
+      <img src="https://ideogram.ai/assets/image/lossless/response/CuH_JzSyR96HclsacEzf8w" />
+    ),
     label: "Edit Dinosaurs",
     showInNavBar: true,
     icon: <HiUserGroup />,
@@ -71,7 +73,9 @@ export const adminRoutes: Routes[] = [
   },
   {
     path: routesPath.adminEditArticles,
-    component: () => <div>adminEditArticles</div>,
+    component: () => (
+      <img src="https://ideogram.ai/assets/image/lossless/response/CuH_JzSyR96HclsacEzf8w" />
+    ),
     label: "Edit Articles",
     showInNavBar: true,
     icon: <HiUserGroup />,

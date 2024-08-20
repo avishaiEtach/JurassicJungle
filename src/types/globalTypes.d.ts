@@ -94,4 +94,14 @@ declare global {
     income: number;
     expenses: number;
   }
+
+  interface Mail {
+    _id: string;
+    subject: string;
+    description: string;
+    sendTime: Date;
+    read: boolean;
+    fromSend: string;
+    employeeId: string;
+  }
 }
