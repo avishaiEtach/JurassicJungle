@@ -11,6 +11,7 @@ import { Dashboard } from "./pages/Dashboard/Dashboard";
 import { Users } from "./pages/Users/Users";
 import { Inbox } from "./pages/Inbox/Inbox";
 import { MailPage } from "./pages/MailPage/MailPage";
+import { MdMail } from "react-icons/md";
 
 export const routesPath = {
   home: "/",
@@ -42,7 +43,7 @@ export const adminRoutes: Routes[] = [
     component: Inbox,
     label: "Inbox",
     showInNavBar: true,
-    icon: <HiUserGroup />,
+    icon: <MdMail />,
     permissions: 4,
   },
   {
@@ -57,26 +58,6 @@ export const adminRoutes: Routes[] = [
     path: routesPath.users,
     component: Users,
     label: "Users",
-    showInNavBar: true,
-    icon: <HiUserGroup />,
-    permissions: 4,
-  },
-  {
-    path: routesPath.adminEditDinosaurs,
-    component: () => (
-      <img src="https://ideogram.ai/assets/image/lossless/response/CuH_JzSyR96HclsacEzf8w" />
-    ),
-    label: "Edit Dinosaurs",
-    showInNavBar: true,
-    icon: <HiUserGroup />,
-    permissions: 4,
-  },
-  {
-    path: routesPath.adminEditArticles,
-    component: () => (
-      <img src="https://ideogram.ai/assets/image/lossless/response/CuH_JzSyR96HclsacEzf8w" />
-    ),
-    label: "Edit Articles",
     showInNavBar: true,
     icon: <HiUserGroup />,
     permissions: 4,

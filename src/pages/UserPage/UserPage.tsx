@@ -73,16 +73,6 @@ export function UserPage() {
     },
   ];
 
-  const adminCatagories: any = [
-    {
-      value: "editUsers",
-      icon: <FaClipboardUser size={"22px"} />,
-      tooltip: "Favorite Articles",
-    },
-  ];
-
-  console.log("user", user);
-
   useEffect(() => {
     if (!user) {
       navigate(routesPath.home);
@@ -90,9 +80,6 @@ export function UserPage() {
       let catagories = [...userCatagories];
       if (user.permissions && user.permissions > 1) {
         catagories.push(...memberCatagories);
-      }
-      if (user.permissions && user.permissions >= 4) {
-        catagories.push(...adminCatagories);
       }
       setCatagories(catagories);
     }
@@ -106,8 +93,6 @@ export function UserPage() {
         return <EditCreateDinosaurs />;
       case "editArticles":
         return <EditCreateArticles />;
-      case "editUsers":
-        return <EditUsers />;
       default:
         return <UserProfile />;
     }
